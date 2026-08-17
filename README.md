@@ -27,8 +27,26 @@ python3 -m http.server 5075
 
 ## Deploy
 
-Netlify → import from GitHub → publish directory is the repo root (no build command
-needed; run `build.py` locally and commit the HTML). The contact form is wired for
-Netlify Forms (`data-netlify="true"`, posts to `thank-you.html`).
+Netlify, from GitHub. There is **no build step** — `build.py` runs locally and the
+generated HTML is committed, so Netlify just serves the repo root.
+
+Build settings must be:
+
+| Field | Value |
+|---|---|
+| Base directory | *(empty)* |
+| Build command | *(empty)* |
+| Publish directory | `.` |
+
+`netlify.toml` at the repo root pins the publish directory and sets cache headers.
+
+**If a deploy fails at "Reading and parsing configuration files"**, the Base directory
+is pointing at a folder that doesn't exist in this repo — most likely `united-recycling`,
+which is only the local folder name on the Mac. Inside the repo, those files *are* the
+root. Clear that field and redeploy. Netlify looks for `netlify.toml` relative to the
+base directory, so while that field is wrong this file won't even be read.
+
+The contact form is wired for Netlify Forms (`data-netlify="true"`, posts to
+`thank-you.html`). Enable form detection on the site after the first successful deploy.
 
 See `DEMO-NOTES.md` for open questions and the photo shot list.

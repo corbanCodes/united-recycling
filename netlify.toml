@@ -1,0 +1,30 @@
+# United Recycling Scrap Metals LLC — static site, no build step.
+#
+# The generated HTML is committed to the repo, so Netlify only has to serve the
+# repo root. index.html, assets/ and every page live at the TOP LEVEL of this
+# repo — there is no subfolder to point at.
+#
+# IF A DEPLOY FAILS AT "Reading and parsing configuration files":
+# the site's **Base directory** in the Netlify UI is set to a folder that does not
+# exist in this repo (e.g. "united-recycling", which is only the name of the local
+# folder on the Mac — inside the repo those files ARE the root).
+# Fix: Netlify → Site configuration → Build & deploy → Build settings
+#   Base directory:    (leave EMPTY)
+#   Build command:     (leave EMPTY)
+#   Publish directory: .
+# Netlify reads this file from the base directory, so while that field is wrong
+# this file will not even be found — the UI has to be corrected first.
+
+[build]
+  publish = "."
+
+# Photos are content-stable; the stylesheet changes more often.
+[[headers]]
+  for = "/assets/img/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/assets/css/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
