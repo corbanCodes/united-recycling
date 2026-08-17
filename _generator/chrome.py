@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """Shared page chrome: <head>, top bar, header/nav, CTA band, footer."""
-from data import BIZ, NAV
+from data import BIZ, NAV, DIVISION
 
 def head(title, desc, active):
     return f"""<!doctype html>
@@ -98,6 +98,7 @@ def footer():
       <div class="foot-brand">
         <span class="brand-name">{BIZ['name']}</span>
         <p>{BIZ['tagline']}. Licensed and bonded, open to the public, and paying more than the local yards in Gwinnett County.</p>
+        <p class="foot-division">Demolition performed by<br><a href="demolition.html">{DIVISION['name']}</a></p>
       </div>
       <div>
         <h4>What We Buy</h4>

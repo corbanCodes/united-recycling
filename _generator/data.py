@@ -149,3 +149,16 @@ DEMO_HEADLINE = [
     ("Refineries &amp; Mills", "Petrochemical plants, steel mills, paper mills and automotive manufacturing complexes."),
     ("Big Public Structures", "Malls, stadiums, airports, hospitals, campuses and correctional complexes."),
 ]
+
+# The demolition arm, branded as its own entity. Gus's wording on 8/17:
+# "United Recycling Demolition Metals LLC" — a sub-service, NOT a rename of the yard.
+# The header/footer brand stays United Recycling Scrap Metals LLC (that's the flyer,
+# the yard and the phone number). This name fronts the demolition page.
+DIVISION = {
+    "name": "United Recycling Demolition Metals LLC",
+    "short": "United Recycling Demolition Metals",
+    "eyebrow": "Demolition performed by",
+    "parent": "United Recycling Scrap Metals LLC",
+    "blurb": "The demolition division of the yard on Hurricane Shoals Road. Same crew, "
+             "same scale, same check &mdash; pointed at buildings instead of pickup beds.",
+}

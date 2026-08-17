@@ -2,7 +2,7 @@
 """Build every page. Run from the site root:  python3 _generator/build.py"""
 import os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from data import BIZ, PILLARS, MATERIALS, PROMISES, PARTNER, DEMO_SCOPE, DEMO_HEADLINE
+from data import BIZ, PILLARS, MATERIALS, PROMISES, PARTNER, DEMO_SCOPE, DEMO_HEADLINE, DIVISION
 import chrome as C
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -56,6 +56,28 @@ def demo_headline_block():
         out.append(f'  <div class="card"><div class="card-ico">&#9670;</div><h3>{h}</h3><p>{b}</p></div>')
     out.append("</div>")
     return "\n".join(out) + "\n"
+
+
+def division_block():
+    """Mid-page lockup for the demolition arm. Deliberately reads as a division of the
+    yard, not as a second unrelated company and not as a rename of the parent."""
+    D = DIVISION
+    return f"""<section class="division">
+  <div class="wrap">
+    <span class="division-eyebrow">{D["eyebrow"]}</span>
+    <div class="division-lockup">
+      <span class="division-mark">UR</span>
+      <span class="division-name">{D["name"]}</span>
+    </div>
+    <p class="division-parent">A demolition division of {D["parent"]}</p>
+    <p class="division-blurb">{D["blurb"]}</p>
+    <div class="btn-row">
+      <a class="btn btn-red btn-lg" href="tel:{BIZ["phone_href"]}">Call {BIZ["phone_display"]}</a>
+      <a class="btn btn-ghost btn-lg" href="contact.html">Get A Demolition Quote</a>
+    </div>
+  </div>
+</section>
+"""
 
 
 def partner_block():
@@ -360,6 +382,8 @@ demo = banner("Commercial &amp; Industrial Demolition",
   </div>
 </section>
 
+{division_block()}
+
 <section>
   <div class="wrap">
     <div class="sec-head">
@@ -402,7 +426,7 @@ demo = banner("Commercial &amp; Industrial Demolition",
 {C.cta("Get A Demolition Quote", "Tell us what's coming down and roughly what's in it. We'll price the demolition and the metal together.")}
 """
 page("demolition.html",
-     f"Commercial &amp; Industrial Demolition | {BIZ['short']}",
+     f"{DIVISION['name']} | Commercial &amp; Industrial Demolition",
      "Large-scale commercial and industrial demolition in Georgia: power plants, nuclear and coal-fired stations, chemical plants, refineries, steel and paper mills, hospitals, universities, malls, stadiums, airports and apartment complexes. Scrap value applied against project cost.",
      "demolition.html", demo)
 

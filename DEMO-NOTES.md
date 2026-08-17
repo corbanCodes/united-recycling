@@ -34,6 +34,25 @@ Ferrous / Non-Ferrous / Electrical & Plant Equipment / Specialty.
 | `contact.html` | Quote form (Netlify) + full contact block |
 | `thank-you.html`, `404.html` | Form success + fallback |
 
+## Entity names — CONFIRM THIS ONE
+
+Two names are now in play, and the site treats them as parent + division:
+
+- **United Recycling Scrap Metals LLC** — the yard. This is what's on the printed flyer,
+  it owns the phone number and address, and it stays in the header, the footer brand and
+  the schema markup on every page.
+- **United Recycling Demolition Metals LLC** — the demolition arm. Gus called this "the
+  official name of the website" on 8/17 while also saying he wanted it as "a sub-serviced
+  type thing," not the company name. So it fronts `demolition.html` (page title + a full
+  lockup band mid-page reading "A demolition division of United Recycling Scrap Metals LLC")
+  and gets a "Demolition performed by" line in the footer sitewide.
+
+**Ask him to confirm that split.** If he actually wants Demolition Metals to be the primary
+brand everywhere, it's a one-line change in `_generator/data.py` (`BIZ["name"]`) plus a
+rebuild — but don't do it without hearing him say so, because the flyer, the yard and the
+scrap side all trade under Scrap Metals. Also worth asking whether Demolition Metals LLC is
+actually registered with the GA Secretary of State, since the site now says "LLC" in public.
+
 ## Open questions for Gus — ASK ON THE CALL
 
 1. **Yard hours.** Placeholder is Mon–Fri 8–5, Sat 8–12. Need the real ones.

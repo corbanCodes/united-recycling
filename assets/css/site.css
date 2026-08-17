@@ -369,3 +369,50 @@ section{padding:84px 0}
   .partner{grid-template-columns:1fr}
   .partner-tag{padding:14px}
 }
+
+
+/* ---------- demolition division lockup ---------- */
+.division{
+  position:relative;overflow:hidden;text-align:center;color:#fff;
+  background:var(--navy-deep);padding:76px 0;
+  border-top:5px solid var(--red);border-bottom:5px solid var(--red);
+}
+.division::before{content:"";position:absolute;inset:0;
+  background:url("../img/demolition.jpg") center 45%/cover no-repeat;filter:grayscale(.6)}
+.division::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(100deg,rgba(10,24,55,.95),rgba(16,39,89,.90))}
+.division .wrap{position:relative;z-index:2}
+.division-eyebrow{
+  display:inline-block;font-size:.76rem;font-weight:800;letter-spacing:.2em;
+  text-transform:uppercase;color:#9FC0F5;margin-bottom:20px;
+}
+.division-lockup{
+  display:flex;align-items:center;justify-content:center;gap:18px;
+  flex-wrap:wrap;margin-bottom:14px;
+}
+.division-mark{
+  width:60px;height:60px;border-radius:50%;flex:0 0 auto;
+  background:var(--navy);color:#fff;display:grid;place-items:center;
+  font-weight:900;font-size:1.35rem;letter-spacing:-.02em;border:3px solid var(--red);
+}
+.division-name{
+  font-weight:900;text-transform:uppercase;letter-spacing:-.01em;line-height:1.05;
+  font-size:clamp(1.5rem,3.4vw,2.6rem);color:#fff;max-width:18ch;text-align:left;
+}
+.division-parent{
+  font-size:.86rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:#9FC0F5;margin:0 0 18px;
+}
+.division-blurb{color:#DCE6F7;max-width:56ch;margin:0 auto 28px;font-size:1.06rem}
+.division .btn-row{justify-content:center}
+
+@media (max-width:640px){
+  .division{padding:56px 0}
+  .division-name{text-align:center;max-width:none}
+}
+
+.foot-division{
+  margin-top:18px;padding-top:16px;border-top:1px solid rgba(255,255,255,.12);
+  font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:#7E93B8;line-height:1.7;
+}
+.foot-division a{color:#fff;font-weight:800}
