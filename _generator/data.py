@@ -37,7 +37,7 @@ PILLARS = [
     ("commercial.html", "Commercial &amp; Industrial",
      "Plant managers and business owners: switch gear, MCCs, breakers, motors, transformers, machinery."),
     ("demolition.html", "Demolition &amp; Cleanouts",
-     "We do demolition for industrial plants, schools and malls — and haul every pound of it out."),
+     "Power plants, chemical plants, mills, malls and campuses — torn down and hauled out."),
     ("vehicles.html", "Vehicles &amp; Equipment",
      "Company vehicles, fleet trucks, heavy equipment and machinery — working or damaged."),
 ]
@@ -102,14 +102,50 @@ PARTNER = {
     "url": "",             # TODO(client)
 }
 
-# What he'll actually tear down. Straight from Gus.
+# What he'll actually tear down. Straight from Gus, 8/17.
+# Commercial and industrial structures only — no single-family houses.
+# He specifically lights up about chemical plants and big power generation.
 DEMO_SCOPE = [
-    ("Power Plants", "Generating stations, boiler houses, turbine halls and the switchyards attached to them."),
-    ("Industrial Plants", "Manufacturing facilities, processing lines, foundries and full production floors."),
-    ("Big Commercial Plants", "The whole building down to the slab &mdash; structural steel, roof deck, walls, footings."),
-    ("Schools &amp; Mini-Malls", "Institutional and retail demolition, including selective interior strip-outs."),
-    ("Warehouses &amp; Distribution", "Racking, mezzanines, dock equipment, conveyor and clear-span structures."),
-    ("Substations &amp; Switchyards", "Transformers, breakers, bus work, switch gear and the copper that goes with it."),
-    ("Tanks &amp; Vessels", "Stainless and carbon steel tanks, vats, silos, pressure vessels and piping."),
-    ("Plant Decommissioning", "Retired lines cut out, rigged, hauled and paid for &mdash; without stopping the rest of the plant."),
+    ("Power &amp; Energy", [
+        "Power plants &amp; energy facilities",
+        "Nuclear plants",
+        "Coal-fired power stations",
+        "Gas-fired power plants",
+        "Hydroelectric dams",
+        "Substations &amp; switchyards",
+    ]),
+    ("Heavy Industry", [
+        "Chemical plants",
+        "Refineries &amp; petrochemical plants",
+        "Steel mills &amp; manufacturing complexes",
+        "Paper mills",
+        "Automotive manufacturing plants",
+        "Tanks, vats, silos &amp; pressure vessels",
+    ]),
+    ("Institutional &amp; Public", [
+        "Major hospitals",
+        "Universities &amp; campus buildings",
+        "Large school districts",
+        "Prisons &amp; correctional complexes",
+        "Military installations",
+        "Convention centers",
+    ]),
+    ("Commercial &amp; Large Structure", [
+        "Shopping malls &amp; mini-malls",
+        "Office towers",
+        "Data centers",
+        "Stadiums &amp; arenas",
+        "Airports &amp; airport terminals",
+        "Apartment &amp; multifamily complexes",
+        "Industrial warehouses &amp; distribution centers",
+        "Bridges &amp; large infrastructure",
+    ]),
+]
+
+# The handful he'll bring up first on a call.
+DEMO_HEADLINE = [
+    ("Chemical Plants", "The work this yard is built around. Process piping, reactors, tank farms, structural steel and every pound of alloy in them."),
+    ("Power Generation", "Nuclear, coal-fired, gas-fired and hydro &mdash; turbine halls, boiler houses, switchyards and the copper that runs through them."),
+    ("Refineries &amp; Mills", "Petrochemical plants, steel mills, paper mills and automotive manufacturing complexes."),
+    ("Big Public Structures", "Malls, stadiums, airports, hospitals, campuses and correctional complexes."),
 ]

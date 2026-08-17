@@ -54,8 +54,15 @@ Ferrous / Non-Ferrous / Electrical & Plant Equipment / Specialty.
    When his photos go in, delete `credits.html` and the footer link to it.
 6. **Demolition service area**, insurance limits and bonding capacity — how far will he
    send a crew? Confirmed with Gus 8/17: demolition is a real service line, **commercial
-   and industrial only — no houses**. Big industrial plants, big commercial plants, schools,
-   mini-malls. Power plants and full teardowns are in scope. The site says all of this now.
+   and industrial only — no single-family houses**. Full scope he named on 8/17, all live
+   on the site: power plants & energy facilities, nuclear, coal-fired, gas-fired, hydroelectric
+   dams, refineries & petrochemical, **chemical plants (his favorite — it leads the section)**,
+   steel mills, paper mills, automotive manufacturing plants, airports & terminals, major
+   hospitals, universities & campus buildings, large school districts, shopping malls,
+   office towers, data centers, stadiums & arenas, convention centers, prisons & correctional
+   complexes, military installations, bridges & large infrastructure, industrial warehouses
+   & distribution centers, apartment & multifamily complexes.
+   Note apartments ARE in scope (multifamily = commercial); single-family houses are not.
 7. **Roll-offs** — does he own the containers or subcontract?
 8. **Vehicles** — title/paperwork requirements, and does he tow?
 9. **Big Dog Demolition (Atlanta, GA)** — Gus's friend, and he wants them promoted on the

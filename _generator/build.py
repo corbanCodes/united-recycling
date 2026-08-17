@@ -2,7 +2,7 @@
 """Build every page. Run from the site root:  python3 _generator/build.py"""
 import os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from data import BIZ, PILLARS, MATERIALS, PROMISES, PARTNER, DEMO_SCOPE
+from data import BIZ, PILLARS, MATERIALS, PROMISES, PARTNER, DEMO_SCOPE, DEMO_HEADLINE
 import chrome as C
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -41,8 +41,18 @@ def materials_block(navy=False):
 
 
 def demo_scope_block():
+    """Categorised list — same treatment as the materials list on what-we-buy."""
+    out = ['<div class="mat-grid">']
+    for heading, items in DEMO_SCOPE:
+        lis = "".join(f"    <li>{i}</li>\n" for i in items)
+        out.append(f'  <div class="mat-col">\n    <h3>{heading}</h3>\n    <ul class="mat-list">\n{lis}    </ul>\n  </div>')
+    out.append("</div>")
+    return "\n".join(out) + "\n"
+
+
+def demo_headline_block():
     out = ['<div class="cards cards-4">']
-    for h, b in DEMO_SCOPE:
+    for h, b in DEMO_HEADLINE:
         out.append(f'  <div class="card"><div class="card-ico">&#9670;</div><h3>{h}</h3><p>{b}</p></div>')
     out.append("</div>")
     return "\n".join(out) + "\n"
@@ -163,7 +173,7 @@ home = f"""<section class="hero">
     <div>
       <span class="eyebrow">For business</span>
       <h2>Dumpsters, Roll-Offs &amp; Full Demolition</h2>
-      <p class="lede">Plant managers and business owners: we don't just buy the metal, we come get it. United Recycling supplies dumpsters and roll-off containers, and we do full commercial demolition &mdash; big industrial plants, commercial plants, schools and mini-malls.</p>
+      <p class="lede">Plant managers and business owners: we don't just buy the metal, we come get it. United Recycling supplies dumpsters and roll-off containers, and we do large-scale commercial demolition &mdash; power plants, chemical plants, refineries, mills, hospitals, campuses, malls and apartment complexes.</p>
       <p>One call handles the container, the labor, the haul-off and the check. No coordinating three vendors and hoping the scrap value doesn't disappear into someone else's invoice.</p>
       <div class="btn-row">
         <a class="btn btn-navy" href="commercial.html">Commercial Accounts</a>
@@ -312,22 +322,23 @@ page("commercial.html",
 
 # ---------------------------------------------------------------- DEMOLITION
 demo = banner("Commercial &amp; Industrial Demolition",
-              "Big industrial plants, big commercial plants, schools and mini-malls &mdash; "
-              "torn down, hauled out and paid for. No residential.") + f"""
+              "Power plants, chemical plants, refineries, mills, hospitals, campuses, malls, "
+              "stadiums and apartment complexes &mdash; torn down, hauled out and paid for.") + f"""
 <section>
   <div class="wrap split">
     <div>
       <span class="eyebrow">This is a service we run, not a sideline</span>
       <h2>We Tear It Down And Take It Away</h2>
-      <p class="lede">United Recycling does demolition. Not just container drops and scrap
-      pickups &mdash; actual teardowns. Big industrial plants, big commercial plants, schools,
-      mini-malls, warehouses, processing lines, tank farms and everything bolted to them.</p>
+      <p class="lede">United Recycling does demolition &mdash; the big stuff. Power plants,
+      chemical plants, refineries, steel and paper mills, hospitals, universities, stadiums,
+      airports, malls, office towers, apartment complexes and the distribution centers behind them.
+      Not container drops and scrap pickups. Actual teardowns.</p>
       <p>Because we are the metal buyer and the demolition crew, the scrap value comes straight
       off your project cost instead of disappearing into a middleman's invoice. That is the
       whole advantage, and it is a big one on a job with real tonnage in it.</p>
-      <p class="scope-note"><strong>Commercial and industrial only.</strong> We don't do houses,
-      garages or residential tear-downs &mdash; this crew is set up for plants, schools,
-      mini-malls and buildings with real tonnage in them.</p>
+      <p class="scope-note"><strong>Commercial and industrial only.</strong> No single-family
+      houses or garages. This crew is set up for power plants, chemical plants, mills, campuses,
+      malls, apartment complexes and anything else with real tonnage in it.</p>
       <div class="btn-row">
         <a class="btn btn-red" href="contact.html">Talk About A Project</a>
         <a class="btn btn-outline" href="tel:{PH}">Call {P}</a>
@@ -340,11 +351,23 @@ demo = banner("Commercial &amp; Industrial Demolition",
 <section class="sec-navy">
   <div class="wrap">
     <div class="sec-head">
-      <span class="eyebrow eyebrow-light">Scope</span>
+      <span class="eyebrow eyebrow-light">What he goes after</span>
+      <h2>The Big Ones</h2>
+      <p class="lede" style="color:#C9D6EE">These are the jobs United Recycling is built for &mdash;
+      heavy structures with serious tonnage and serious alloy content in them.</p>
+    </div>
+    {demo_headline_block()}
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Full scope</span>
       <h2>What We'll Take Down</h2>
-      <p class="lede" style="color:#C9D6EE">Commercial and industrial structures only. If it's a big
-      building coming down and there's metal in it, it's on the list &mdash; and if it isn't listed,
-      call anyway, it probably still is.</p>
+      <p class="lede">Commercial and industrial structures only. If it's a big building coming down
+      and there's metal in it, it's on the list &mdash; and if it isn't listed, call anyway,
+      it probably still is.</p>
     </div>
     {demo_scope_block()}
   </div>
@@ -379,8 +402,8 @@ demo = banner("Commercial &amp; Industrial Demolition",
 {C.cta("Get A Demolition Quote", "Tell us what's coming down and roughly what's in it. We'll price the demolition and the metal together.")}
 """
 page("demolition.html",
-     f"Demolition, Teardowns &amp; Plant Decommissioning | {BIZ['short']}",
-     "Industrial demolition in Georgia: power plants, industrial facilities, warehouses, schools and malls. Total teardowns, plant decommissioning, dumpsters and roll-offs, with scrap value applied against project cost.",
+     f"Commercial &amp; Industrial Demolition | {BIZ['short']}",
+     "Large-scale commercial and industrial demolition in Georgia: power plants, nuclear and coal-fired stations, chemical plants, refineries, steel and paper mills, hospitals, universities, malls, stadiums, airports and apartment complexes. Scrap value applied against project cost.",
      "demolition.html", demo)
 
 
