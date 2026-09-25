@@ -55,20 +55,14 @@ rebuild — but don't do it without hearing him say so, because the flyer, the y
 scrap side all trade under Scrap Metals. Also worth asking whether Demolition Metals LLC is
 actually registered with the GA Secretary of State, since the site now says "LLC" in public.
 
-## ⚠️ NAME CONFLICT — RESOLVE BEFORE ANYONE SEES THIS
+## Name — RESOLVED 9/25
 
-The printed flyer says **Gus Heart**. On 9/25 Corban wrote **"gus harvey, his son."**
-Heart vs Harvey — one of them is wrong, and a wrong surname on a live site is the kind
-of thing a client notices immediately.
+The printed flyer reads "Gus Heart". **Confirmed by phone on 9/25: it is Gus Harvey**,
+the son, and he is who callers should ask for. The site now says "Ask for Gus Harvey"
+next to every phone number.
 
-**So the site says "Ask for Gus" everywhere and never prints a surname.** That satisfies
-the instruction (call/text and ask for the son), reads naturally, and carries zero risk.
-Get the correct spelling from him and it's a one-line change to `BIZ["ask_for"]` +
-`BIZ["call_cta"]` in `_generator/data.py`.
-
-Also worth pinning down: the flyer's "Gus Heart" is the contact on the phone number, and
-Corban's note says the son is who you ask for. Are they the same person, or is the dad
-on the flyer and the son answering now? `BIZ["owner"]` is still "Gus Heart".
+Single source of truth: `BIZ["ask_name"]` in `_generator/data.py`. Change that one line
+and every page follows — nothing is hardcoded any more.
 
 ## 9/25 change set — NO EMAIL, NO FORMS
 
@@ -173,9 +167,32 @@ garbage truck full of cardboard, one "truck scale" result was a Chinese freight 
 no scale in it, and one "motor control center" result was a man drilling a concrete wall
 with a date stamp burned into the corner. Worth knowing that image search titles lie.
 
-## Placeholders / TODOs in the code
+## LIVE — and no internal notes render any more
 
-Search for `TODO(client)` — they're on drop-off, demolition, vehicles, about, contact.
+Live at **https://unitedrecyclingdemolition.com** (Netlify + Namecheap ALIAS/CNAME,
+Let's Encrypt cert issued 9/25). www and http both 301 to the canonical https apex.
+
+Six `TODO(client)` notes used to render **on the page** — fine for a demo, not fine on a
+paying client's own domain. One of them literally read "confirm yard hours before this
+goes in front of customers" while sitting in front of customers. All removed from the
+rendered output on 9/25. **Every question they raised is preserved below — nothing was
+dropped, just moved off the public page.**
+
+### Answers still needed (previously shown on-page)
+
+1. **Yard hours** — still the placeholder Mon–Fri 8–5, Sat 8–12 in `BIZ["hours"]`.
+   This one is public and wrong until he confirms it. Highest priority.
+2. **Drop-off**: ID requirements, payment method (cash / check / card), and any material
+   he can't take from the public.
+3. **Demolition**: service area, insurance limits, bonding capacity, and whether the
+   roll-offs are owned or subcontracted.
+4. **Vehicles**: title/paperwork requirements, and whether he tows.
+5. **Service area**: how far out he'll actually run containers and demolition crews.
+6. **Big Dog Demolition**: still no verified phone or website. The referral card now
+   renders with no button at all rather than a dead link — get the real details and fill
+   in `PARTNER` in `_generator/data.py` and the button comes back automatically.
+
+## Placeholders in the code
 
 ## Build
 

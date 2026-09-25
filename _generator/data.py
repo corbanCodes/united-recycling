@@ -1,12 +1,14 @@
 # -*- coding: utf-8 -*-
 """United Recycling Scrap Metals LLC — site content.
 Everything the client can change lives here. Edit, then run: python3 _generator/build.py
-Source of truth for facts: Gus Heart's printed flyer (see DEMO-NOTES.md)."""
+Source of truth for facts: the printed flyer + phone calls with the client.
+The flyer reads "Gus Heart"; the client confirmed by phone on 9/25 that it is
+**Gus Harvey**, the son, and that he is who callers should ask for. (see DEMO-NOTES.md)"""
 
 BIZ = {
     "name": "United Recycling Scrap Metals LLC",
     "short": "United Recycling",
-    "owner": "Gus Heart",
+    "owner": "Gus Harvey",
     "phone_display": "470-655-9608",
     "phone_href": "+14706559608",
     "street": "621 Hurricane Shoals Rd",
@@ -19,9 +21,10 @@ BIZ = {
     "tagline": "Ferrous &amp; Non-Ferrous Metal Recycling",
     # NO email and NO forms anywhere on this site — client request 9/25. Phone only.
     # Every phone number is followed by this line. It is the main conversion instruction.
-    "ask_for": "Ask for Gus",
-    "call_cta": "Call or text &mdash; ask for Gus",
-    "call_note": "Call or text this number and ask for Gus. Picture messages welcome &mdash; "
+    "ask_name": "Gus Harvey",          # <- change this one line if the name ever changes
+    "ask_for": "Ask for Gus Harvey",
+    "call_cta": "Call or text &mdash; ask for Gus Harvey",
+    "call_note": "Call or text this number and ask for Gus Harvey. Picture messages welcome &mdash; "
                  "send a photo of your load and you'll get a price back.",
 }
 

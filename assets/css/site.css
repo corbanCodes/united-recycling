@@ -528,3 +528,30 @@ section{padding:84px 0}
   .cara-slide{flex:0 0 100%}
   .gal-grid{grid-template-columns:1fr}
 }
+
+/* ---------- hero phone lockup ----------
+   The number IS the call to action for this client — he takes every job by phone,
+   so it outranks the buttons in the hero. */
+.hero-phone{margin:34px 0 8px}
+.hero-phone-label{
+  display:block;font-size:.78rem;font-weight:800;letter-spacing:.2em;
+  text-transform:uppercase;color:#9FC0F5;margin-bottom:6px;
+}
+.hero-phone-number{
+  display:inline-block;color:#fff;text-decoration:none;font-weight:900;
+  letter-spacing:-.02em;line-height:1;font-size:clamp(2.6rem,6.4vw,4.6rem);
+  text-shadow:0 4px 30px rgba(0,0,0,.45);
+}
+.hero-phone-number:hover{color:#FFD9E0;text-decoration:none}
+.hero-phone-ask{
+  display:block;margin-top:10px;font-weight:900;text-transform:uppercase;
+  letter-spacing:.1em;font-size:clamp(1rem,2.2vw,1.35rem);color:#fff;
+  background:var(--red);padding:9px 18px;border-radius:var(--r);
+  box-shadow:0 8px 24px rgba(0,0,0,.30);
+}
+.hero-phone-ask{display:inline-block}
+@media (max-width:560px){
+  .hero-phone{margin-top:26px}
+  .hero-phone-ask{display:block;text-align:center}
+  .hero-phone-number{display:block}
+}

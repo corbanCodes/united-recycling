@@ -40,7 +40,7 @@ def topbar():
   <div class="wrap">
     <span>{BIZ['street']}, {BIZ['city']}, {BIZ['state']} {BIZ['zip']}</span>
     <span class="tb-note">Call or text &mdash; picture messages welcome</span>
-    <span><a href="tel:{BIZ['phone_href']}">{BIZ['phone_display']}</a> <b class="tb-ask">&middot; Ask for Gus</b></span>
+    <span><a href="tel:{BIZ['phone_href']}">{BIZ['phone_display']}</a> <b class="tb-ask">&middot; {BIZ['ask_for']}</b></span>
   </div>
 </div>
 """
@@ -76,7 +76,7 @@ def strip():
 """
 
 def cta(head_txt="Get Paid For Your Scrap Today",
-        body="Call or text <b>470-655-9608</b> and ask for Gus. Send a picture of what you've got, or pull into the yard on Hurricane Shoals Road. Either way you leave with cash."):
+        body=f"Call or text <b>{BIZ['phone_display']}</b> and ask for {BIZ['ask_name']}. Send a picture of what you've got, or pull into the yard on Hurricane Shoals Road. Either way you leave with cash."):
     return f"""<section class="cta">
   <div class="wrap">
     <span class="eyebrow eyebrow-light">Open to the public</span>
@@ -122,7 +122,7 @@ def footer():
         <ul>
           <li><a href="{BIZ['map_url']}" target="_blank" rel="noopener">{BIZ['street']}<br>{BIZ['city']}, {BIZ['state']} {BIZ['zip']}</a></li>
           <li><a class="foot-phone" href="tel:{BIZ['phone_href']}">{BIZ['phone_display']}</a>
-              <span class="foot-ask">Call or text &mdash; ask for Gus</span></li>
+              <span class="foot-ask">{BIZ['call_cta']}</span></li>
           <li>{BIZ['hours']}</li>
         </ul>
       </div>

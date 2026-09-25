@@ -7,6 +7,7 @@ import chrome as C
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 P, PH = BIZ["phone_display"], BIZ["phone_href"]
+ASK, ASKNAME = BIZ["ask_for"], BIZ["ask_name"]
 
 
 def write(name, html):
@@ -123,8 +124,9 @@ def partner_block():
     elif P_["url"]:
         contact = f'<a class="btn btn-navy" href="{P_["url"]}" target="_blank" rel="noopener">Visit {P_["name"]}</a>'
     else:
-        contact = ('<span class="partner-todo">TODO(client): get Big Dog\'s phone number and web '
-                   'address from Gus, then fill in PARTNER in <code>_generator/data.py</code>.</span>')
+        # No verified number or site for them yet — show the referral without a dead
+        # link rather than leaking an internal note onto a live customer-facing page.
+        contact = ""
     return f"""<section class="sec-gray">
   <div class="wrap">
     <div class="partner">
@@ -158,11 +160,17 @@ home = f"""<section class="hero">
     <span class="eyebrow eyebrow-light">Lawrenceville, Georgia &middot; Open to the public</span>
     <h1>Scrap Metal<span>Turned Into Cash</span></h1>
     <p>United Recycling buys all ferrous and non-ferrous metals &mdash; from a truckload of aluminum cans to a plant full of switch gear. We pay more than the local yards, and we pay you the same day.</p>
+    <div class="hero-phone">
+      <span class="hero-phone-label">Call or text</span>
+      <a class="hero-phone-number" href="tel:{PH}">{P}</a>
+      <span class="hero-phone-ask">{ASK}</span>
+    </div>
     <div class="btn-row">
-      <a class="btn btn-red btn-lg" href="tel:{PH}">Call {P}</a>
+      <a class="btn btn-red btn-lg" href="tel:{PH}">Call Now</a>
+      <a class="btn btn-ghost btn-lg" href="sms:{PH}">Text A Photo</a>
       <a class="btn btn-ghost btn-lg" href="what-we-buy.html">See What We Buy</a>
     </div>
-    <p class="hero-note">Text and picture messages accepted &mdash; snap a photo of your load and we'll price it.</p>
+    <p class="hero-note">Picture messages welcome &mdash; snap a photo of your load and we'll price it.</p>
   </div>
 </section>
 
@@ -175,7 +183,7 @@ home = f"""<section class="hero">
       <h2>Real Loads, Real Money</h2>
       <p class="lede center" style="margin:0 auto">These are actual loads that came across our
       scale in Lawrenceville. Got something that looks like this? Call or text
-      <a href="tel:{PH}">{P}</a> and ask for Gus.</p>
+      <a href="tel:{PH}">{P}</a> and ask for {ASKNAME}.</p>
     </div>
     {carousel_block(limit=8)}
     <div class="center" style="margin-top:34px">
@@ -332,7 +340,6 @@ drop = banner("Public Drop-Off",
       <div class="card card-red"><div class="card-ico">02</div><h3>See Your Numbers</h3><p>You see the weight and the price per pound for every grade in your load before anything is settled.</p></div>
       <div class="card"><div class="card-ico">03</div><h3>Get Paid</h3><p>Walk out the same day with your money. Bring a valid ID &mdash; Georgia law requires it on every scrap transaction.</p></div>
     </div>
-    <p class="form-note center" style="margin-top:26px">TODO(client): confirm ID requirements, payment method (cash / check / card) and any material we can't take from the public.</p>
   </div>
 </section>
 
@@ -467,13 +474,12 @@ demo = banner("Commercial &amp; Industrial Demolition",
       <div class="card card-red"><div class="card-ico">&#9670;</div><h3>Selective Demolition</h3><p>Interior strip-outs and single-line removals where the rest of the building keeps operating around us.</p></div>
       <div class="card"><div class="card-ico">&#9670;</div><h3>Plant Cleanouts</h3><p>Decommissioned lines, retired equipment and years of accumulated surplus &mdash; cleared out and turned into a check.</p></div>
     </div>
-    <p class="form-note center" style="margin-top:26px">TODO(client): confirm demolition service area, insurance limits, bonding capacity, and whether roll-offs are owned or subcontracted.</p>
   </div>
 </section>
 
 {partner_block()}
 {C.strip()}
-{C.cta("Talk To Us About A Teardown", "Call or text <b>470-655-9608</b> and ask for Gus. Tell us what's coming down and roughly what's in it &mdash; we'll price the demolition and the metal together.")}
+{C.cta("Talk To Us About A Teardown", "Call or text <b>" + P + "</b> and ask for " + ASKNAME + ". Tell us what's coming down and roughly what's in it &mdash; we'll price the demolition and the metal together.")}
 """
 page("demolition.html",
      f"{DIVISION['name']} | Commercial &amp; Industrial Demolition",
@@ -512,7 +518,6 @@ veh = banner("Vehicles &amp; Heavy Equipment",
       <div class="card"><div class="card-ico">&#9670;</div><h3>Machinery</h3><p>Production machinery working or damaged, including full lines.</p></div>
       <div class="card"><div class="card-ico">&#9670;</div><h3>Parts &amp; Cores</h3><p>Radiators, motors, transmissions, catalytic material and non-ferrous cores.</p></div>
     </div>
-    <p class="form-note" style="color:#9FC0F5;margin-top:26px">TODO(client): confirm title/paperwork requirements for vehicles and whether towing is offered.</p>
   </div>
 </section>
 
@@ -557,7 +562,6 @@ about = banner("About United Recycling",
       <span class="tag">Lilburn</span><span class="tag">Dacula</span><span class="tag">Grayson</span>
       <span class="tag">Loganville</span><span class="tag">Sugar Hill</span><span class="tag">Winder</span>
       <span class="tag">Gainesville</span><span class="tag">Athens</span><span class="tag">Atlanta Metro</span>
-      <p class="form-note" style="margin-top:22px">TODO(client): confirm how far out we'll run containers and demolition crews.</p>
     </div>
   </div>
 </section>
@@ -577,13 +581,13 @@ page("about.html",
 # whole job is to get someone to call or text and ask for Gus.
 contact = banner("Call Or Text Us",
                  "No forms, no email. Pick up the phone or send a text &mdash; "
-                 "and ask for Gus.") + f"""
+                 "and ask for " + ASKNAME + ".") + f"""
 <section>
   <div class="wrap">
     <div class="callbox">
       <span class="callbox-eyebrow">Call or text</span>
       <a class="callbox-number" href="tel:{PH}">{P}</a>
-      <p class="callbox-ask">Ask for Gus</p>
+      <p class="callbox-ask">{ASK}</p>
       <p class="callbox-note">Picture messages welcome. Send a photo of what you've got and
       you'll get a price back &mdash; it's the fastest way to find out what your load is worth.</p>
       <div class="btn-row">
@@ -602,13 +606,12 @@ contact = banner("Call Or Text Us",
       <ul class="contact-list">
         <li><span class="cl-label">Call or text</span>
             <span class="cl-value"><a href="tel:{PH}">{P}</a></span>
-            <span class="cl-sub">Ask for Gus &mdash; picture messages welcome</span></li>
+            <span class="cl-sub">{ASK} &mdash; picture messages welcome</span></li>
         <li><span class="cl-label">Address</span>
             <span class="cl-value"><a href="{BIZ['map_url']}" target="_blank" rel="noopener">{BIZ['street']}<br>{BIZ['city']}, {BIZ['state']} {BIZ['zip']}</a></span></li>
         <li><span class="cl-label">Hours</span>
             <span class="cl-value" style="font-size:1rem">{BIZ['hours']}</span></li>
       </ul>
-      <p class="form-note">TODO(client): confirm yard hours before this goes in front of customers.</p>
     </div>
     <div class="split-media"><img src="assets/img/gallery/brass-valves-fittings.jpg" alt="Brass valves and fittings brought in to the yard" loading="lazy" width="750" height="1000"></div>
   </div>
@@ -618,7 +621,7 @@ contact = banner("Call Or Text Us",
 """
 page("contact.html",
      f"Call Or Text {BIZ['short']} | Lawrenceville, GA",
-     "Call or text United Recycling Scrap Metals in Lawrenceville GA at 470-655-9608 and ask for Gus. Picture messages welcome — send a photo of your scrap and get a price back.",
+     f"Call or text United Recycling Scrap Metals in Lawrenceville GA at {P} and ask for {ASKNAME}. Picture messages welcome — send a photo of your scrap and get a price back.",
      "contact.html", contact)
 
 # ---------------------------------------------------------------- GALLERY
@@ -632,7 +635,7 @@ gal = banner("Our Yard &amp; Material",
       <h2>This Is What We Buy</h2>
       <p class="lede">Copper, brass, wire, motors, boards and fittings &mdash; graded, weighed and
       paid for the same day. If you've got something that looks like any of this, call or text
-      <a href="tel:{PH}">{P}</a> and ask for Gus.</p>
+      <a href="tel:{PH}">{P}</a> and ask for {ASKNAME}.</p>
     </div>
     {carousel_block()}
   </div>
@@ -667,7 +670,7 @@ page("gallery.html",
 nf = f"""<section class="banner">
   <div class="wrap">
     <h1>Page Not Found</h1>
-    <p>That page isn't here &mdash; but the metal still is. Call or text {P} and ask for Gus.</p>
+    <p>That page isn't here &mdash; but the metal still is. Call or text {P} and ask for {ASKNAME}.</p>
     <div class="btn-row" style="margin-top:26px">
       <a class="btn btn-red btn-lg" href="tel:{PH}">Call {P}</a>
       <a class="btn btn-ghost btn-lg" href="index.html">Home</a>
