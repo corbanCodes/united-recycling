@@ -13,7 +13,9 @@ All page content lives in `_generator/`. Edit there, then regenerate:
 python3 _generator/build.py
 ```
 
-- `_generator/data.py` — business facts, nav, pillars, material list. Start here.
+- `_generator/data.py` — business facts, nav, pillars, material list, gallery. Start here.
+  `BIZ["ask_for"]` / `BIZ["call_cta"]` drive the "Ask for Gus" line that sits next to
+  every phone number — the single most important instruction on the site.
 - `_generator/chrome.py` — top bar, header/nav, CTA band, footer.
 - `_generator/build.py` — page bodies.
 
@@ -46,7 +48,24 @@ which is only the local folder name on the Mac. Inside the repo, those files *ar
 root. Clear that field and redeploy. Netlify looks for `netlify.toml` relative to the
 base directory, so while that field is wrong this file won't even be read.
 
-The contact form is wired for Netlify Forms (`data-netlify="true"`, posts to
-`thank-you.html`). Enable form detection on the site after the first successful deploy.
+**There is no contact form and no email address on this site** — the client asked for
+phone and text only (9/25). Do not add Netlify Forms, a mailto link, or an email field
+back in without asking him first.
+
+## Custom domain
+
+`unitedrecyclingdemolition.com` (Namecheap) → this Netlify site.
+
+Namecheap → Domain List → Manage → **Advanced DNS**. Host records should be exactly:
+
+| Type | Host | Value | TTL |
+|---|---|---|---|
+| ALIAS Record | `@` | `united-recycling.netlify.app` | Automatic |
+| CNAME Record | `www` | `united-recycling.netlify.app` | Automatic |
+
+Delete the default `CNAME www → parkingpage.namecheap.com` and the
+`URL Redirect Record @` first — those are Namecheap's parking page and they will
+override the site. Then add the domain in Netlify under Domain management so it can
+issue the Let's Encrypt certificate.
 
 See `DEMO-NOTES.md` for open questions and the photo shot list.

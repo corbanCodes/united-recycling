@@ -1,4 +1,6 @@
-# United Recycling Scrap Metals LLC — demo notes
+# United Recycling Scrap Metals LLC — client notes
+
+> **STATUS: SIGNED 9/25/2026 — $50/mo.** Haggled the setup fee down. Live client, not a demo.
 
 **Client:** Gus Heart · United Recycling Scrap Metals LLC
 **Yard:** 621 Hurricane Shoals Rd, Lawrenceville, GA 30046
@@ -52,6 +54,57 @@ brand everywhere, it's a one-line change in `_generator/data.py` (`BIZ["name"]`)
 rebuild — but don't do it without hearing him say so, because the flyer, the yard and the
 scrap side all trade under Scrap Metals. Also worth asking whether Demolition Metals LLC is
 actually registered with the GA Secretary of State, since the site now says "LLC" in public.
+
+## ⚠️ NAME CONFLICT — RESOLVE BEFORE ANYONE SEES THIS
+
+The printed flyer says **Gus Heart**. On 9/25 Corban wrote **"gus harvey, his son."**
+Heart vs Harvey — one of them is wrong, and a wrong surname on a live site is the kind
+of thing a client notices immediately.
+
+**So the site says "Ask for Gus" everywhere and never prints a surname.** That satisfies
+the instruction (call/text and ask for the son), reads naturally, and carries zero risk.
+Get the correct spelling from him and it's a one-line change to `BIZ["ask_for"]` +
+`BIZ["call_cta"]` in `_generator/data.py`.
+
+Also worth pinning down: the flyer's "Gus Heart" is the contact on the phone number, and
+Corban's note says the son is who you ask for. Are they the same person, or is the dad
+on the flyer and the son answering now? `BIZ["owner"]` is still "Gus Heart".
+
+## 9/25 change set — NO EMAIL, NO FORMS
+
+Client isn't tech literate and doesn't want an inbox he'll miss. Stripped completely:
+
+- Contact form deleted. `contact.html` is now one big tap-to-call number + "Ask for Gus"
+  + a "Text A Photo" (`sms:`) button.
+- `thank-you.html` deleted — it only existed as the form's target.
+- Every `mailto:` link and the email address itself are gone from the pages, the footer,
+  and the `RecyclingCenter` schema. `BIZ["email"]` is deleted from `data.py`.
+- All "Get a Quote" CTAs now say Call / Text, and the header button is the phone number
+  itself with a `tel:` link.
+- Netlify Forms attributes removed. **Do not re-enable form detection in Netlify.**
+
+Verified after build: 0 `mailto:`, 0 `<form>`, 0 `data-netlify`, 0 email-shaped strings
+anywhere in the generated HTML.
+
+**"Ask for Gus" appears on all 11 pages** — top bar, footer, contact page, and next to
+every phone number.
+
+## Photo gallery (his own photos)
+
+12 photos from `client-provided-photos/` are live at `assets/img/gallery/`. They arrived
+as texted screenshots (750x1624, black letterbox bars top and bottom, and two had an
+iPhone home-indicator line at the bottom). All cropped to the real 750x1000 content
+region, so they're uniform 3:4 — `magick -crop 750x1000+0+312`.
+
+`gallery.html` has a scroll-snap carousel (4 up on desktop, 2 on tablet, 1 on phone,
+swipeable, with prev/next + dots) plus a full 12-photo grid. The homepage carries an
+8-photo carousel above the "who we are" section. No JS library — it degrades to a plain
+horizontal scroller if the script never runs.
+
+**These are far better than the Wikimedia stand-ins.** Next step: swap the remaining
+stock photos (hero, yard-aerial, switchgear, demolition, vehicles) for his own as he
+sends more, then delete `credits.html` and its footer link. Still need: the yard from
+the road, the scale/drive-in lane, and a shot of Gus or the crew.
 
 ## Open questions for Gus — ASK ON THE CALL
 

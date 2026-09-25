@@ -16,7 +16,6 @@
   "@type":"RecyclingCenter",
   "name":"United Recycling Scrap Metals LLC",
   "telephone":"470-655-9608",
-  "email":"unitedelectricalsurplus@yahoo.com",
   "address":{
     "@type":"PostalAddress",
     "streetAddress":"621 Hurricane Shoals Rd",
@@ -32,8 +31,8 @@
 <div class="topbar">
   <div class="wrap">
     <span>621 Hurricane Shoals Rd, Lawrenceville, GA 30046</span>
-    <span class="tb-note">Text and picture messages accepted &mdash; send us a photo of your load</span>
-    <span><a href="tel:+14706559608">470-655-9608</a></span>
+    <span class="tb-note">Call or text &mdash; picture messages welcome</span>
+    <span><a href="tel:+14706559608">470-655-9608</a> <b class="tb-ask">&middot; Ask for Gus</b></span>
   </div>
 </div>
 <header class="site-header">
@@ -53,8 +52,9 @@
     <a href="commercial.html">Commercial</a>
     <a href="demolition.html" class="active">Demolition</a>
     <a href="vehicles.html">Vehicles</a>
+    <a href="gallery.html">Gallery</a>
     <a href="about.html">About</a>
-      <a class="btn btn-red" href="contact.html">Get a Quote</a>
+      <a class="btn btn-red nav-call" href="tel:+14706559608">470-655-9608</a>
     </nav>
   </div>
 </header>
@@ -81,7 +81,7 @@
       houses or garages. This crew is set up for power plants, chemical plants, mills, campuses,
       malls, apartment complexes and anything else with real tonnage in it.</p>
       <div class="btn-row">
-        <a class="btn btn-red" href="contact.html">Talk About A Project</a>
+        <a class="btn btn-red" href="tel:+14706559608">Call 470-655-9608</a>
         <a class="btn btn-outline" href="tel:+14706559608">Call 470-655-9608</a>
       </div>
     </div>
@@ -118,7 +118,7 @@
     <p class="division-blurb">The demolition division of the yard on Hurricane Shoals Road. Same crew, same scale, same check &mdash; pointed at buildings instead of pickup beds.</p>
     <div class="btn-row">
       <a class="btn btn-red btn-lg" href="tel:+14706559608">Call 470-655-9608</a>
-      <a class="btn btn-ghost btn-lg" href="contact.html">Get A Demolition Quote</a>
+      <a class="btn btn-ghost btn-lg" href="sms:+14706559608">Text A Photo</a>
     </div>
   </div>
 </section>
@@ -232,11 +232,11 @@
 <section class="cta">
   <div class="wrap">
     <span class="eyebrow eyebrow-light">Open to the public</span>
-    <h2>Get A Demolition Quote</h2>
-    <p>Tell us what's coming down and roughly what's in it. We'll price the demolition and the metal together.</p>
+    <h2>Talk To Us About A Teardown</h2>
+    <p>Call or text <b>470-655-9608</b> and ask for Gus. Tell us what's coming down and roughly what's in it &mdash; we'll price the demolition and the metal together.</p>
     <div class="btn-row">
       <a class="btn btn-red btn-lg" href="tel:+14706559608">Call 470-655-9608</a>
-      <a class="btn btn-ghost btn-lg" href="contact.html">Get a Quote</a>
+      <a class="btn btn-ghost btn-lg" href="sms:+14706559608">Text A Photo</a>
     </div>
   </div>
 </section>
@@ -271,8 +271,8 @@
         <h4>The Yard</h4>
         <ul>
           <li><a href="https://maps.google.com/?q=621+Hurricane+Shoals+Rd+Lawrenceville+GA+30046" target="_blank" rel="noopener">621 Hurricane Shoals Rd<br>Lawrenceville, GA 30046</a></li>
-          <li><a href="tel:+14706559608">470-655-9608</a></li>
-          <li><a href="mailto:unitedelectricalsurplus@yahoo.com">unitedelectricalsurplus@yahoo.com</a></li>
+          <li><a class="foot-phone" href="tel:+14706559608">470-655-9608</a>
+              <span class="foot-ask">Call or text &mdash; ask for Gus</span></li>
           <li>Mon–Fri 8:00am – 5:00pm · Sat 8:00am – 12:00pm</li>
         </ul>
       </div>
@@ -289,6 +289,56 @@ var t = document.querySelector('.nav-toggle'), n = document.getElementById('site
 t.addEventListener('click', function(){
   var open = n.classList.toggle('open');
   t.setAttribute('aria-expanded', open);
+});
+
+/* Carousel: a scroll-snap strip. Buttons and dots drive scrollLeft, and the active
+   dot is derived from scroll position, so touch swipes and button clicks stay in
+   sync. With JS off it's still a usable horizontal scroller. */
+document.querySelectorAll('[data-carousel]').forEach(function(car){
+  var track = car.querySelector('.cara-track'),
+      slides = car.querySelectorAll('.cara-slide'),
+      dots = car.querySelectorAll('.cara-dot'),
+      prev = car.querySelector('.cara-prev'),
+      next = car.querySelector('.cara-next');
+  if(!track || !slides.length) return;
+
+  function step(){
+    var a = slides[0].getBoundingClientRect(),
+        b = slides.length > 1 ? slides[1].getBoundingClientRect() : null;
+    return b ? (b.left - a.left) : (a.width + 18);
+  }
+  function perView(){
+    return Math.max(1, Math.round(track.clientWidth / step()));
+  }
+  function index(){
+    return Math.round(track.scrollLeft / step());
+  }
+  function sync(){
+    var i = index(), max = slides.length - perView();
+    dots.forEach(function(d, di){ d.classList.toggle('is-on', di === i); });
+    if(prev) prev.disabled = i <= 0;
+    if(next) next.disabled = i >= max;
+  }
+  function go(i){
+    var max = slides.length - perView();
+    i = Math.max(0, Math.min(i, max));
+    track.scrollTo({ left: i * step(), behavior: 'smooth' });
+  }
+
+  if(prev) prev.addEventListener('click', function(){ go(index() - perView()); });
+  if(next) next.addEventListener('click', function(){ go(index() + perView()); });
+  dots.forEach(function(d){
+    d.addEventListener('click', function(){ go(parseInt(d.dataset.go, 10)); });
+  });
+
+  var tick;
+  track.addEventListener('scroll', function(){
+    clearTimeout(tick); tick = setTimeout(sync, 90);
+  });
+  window.addEventListener('resize', function(){
+    clearTimeout(tick); tick = setTimeout(sync, 150);
+  });
+  sync();
 });
 </script>
 </body>

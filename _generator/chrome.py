@@ -21,7 +21,6 @@ def head(title, desc, active):
   "@type":"RecyclingCenter",
   "name":"{BIZ['name']}",
   "telephone":"{BIZ['phone_display']}",
-  "email":"{BIZ['email']}",
   "address":{{
     "@type":"PostalAddress",
     "streetAddress":"{BIZ['street']}",
@@ -40,8 +39,8 @@ def topbar():
     return f"""<div class="topbar">
   <div class="wrap">
     <span>{BIZ['street']}, {BIZ['city']}, {BIZ['state']} {BIZ['zip']}</span>
-    <span class="tb-note">Text and picture messages accepted &mdash; send us a photo of your load</span>
-    <span><a href="tel:{BIZ['phone_href']}">{BIZ['phone_display']}</a></span>
+    <span class="tb-note">Call or text &mdash; picture messages welcome</span>
+    <span><a href="tel:{BIZ['phone_href']}">{BIZ['phone_display']}</a> <b class="tb-ask">&middot; Ask for Gus</b></span>
   </div>
 </div>
 """
@@ -62,7 +61,7 @@ def header(active):
     </a>
     <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav">Menu</button>
     <nav class="nav" id="site-nav">
-{links}      <a class="btn btn-red" href="contact.html">Get a Quote</a>
+{links}      <a class="btn btn-red nav-call" href="tel:{BIZ['phone_href']}">{BIZ['phone_display']}</a>
     </nav>
   </div>
 </header>
@@ -77,7 +76,7 @@ def strip():
 """
 
 def cta(head_txt="Get Paid For Your Scrap Today",
-        body="Send us a picture of what you've got, or pull into the yard on Hurricane Shoals Road. Either way you leave with cash."):
+        body="Call or text <b>470-655-9608</b> and ask for Gus. Send a picture of what you've got, or pull into the yard on Hurricane Shoals Road. Either way you leave with cash."):
     return f"""<section class="cta">
   <div class="wrap">
     <span class="eyebrow eyebrow-light">Open to the public</span>
@@ -85,7 +84,7 @@ def cta(head_txt="Get Paid For Your Scrap Today",
     <p>{body}</p>
     <div class="btn-row">
       <a class="btn btn-red btn-lg" href="tel:{BIZ['phone_href']}">Call {BIZ['phone_display']}</a>
-      <a class="btn btn-ghost btn-lg" href="contact.html">Get a Quote</a>
+      <a class="btn btn-ghost btn-lg" href="sms:{BIZ['phone_href']}">Text A Photo</a>
     </div>
   </div>
 </section>
@@ -122,8 +121,8 @@ def footer():
         <h4>The Yard</h4>
         <ul>
           <li><a href="{BIZ['map_url']}" target="_blank" rel="noopener">{BIZ['street']}<br>{BIZ['city']}, {BIZ['state']} {BIZ['zip']}</a></li>
-          <li><a href="tel:{BIZ['phone_href']}">{BIZ['phone_display']}</a></li>
-          <li><a href="mailto:{BIZ['email']}">{BIZ['email']}</a></li>
+          <li><a class="foot-phone" href="tel:{BIZ['phone_href']}">{BIZ['phone_display']}</a>
+              <span class="foot-ask">Call or text &mdash; ask for Gus</span></li>
           <li>{BIZ['hours']}</li>
         </ul>
       </div>
@@ -140,6 +139,56 @@ var t = document.querySelector('.nav-toggle'), n = document.getElementById('site
 t.addEventListener('click', function(){{
   var open = n.classList.toggle('open');
   t.setAttribute('aria-expanded', open);
+}});
+
+/* Carousel: a scroll-snap strip. Buttons and dots drive scrollLeft, and the active
+   dot is derived from scroll position, so touch swipes and button clicks stay in
+   sync. With JS off it's still a usable horizontal scroller. */
+document.querySelectorAll('[data-carousel]').forEach(function(car){{
+  var track = car.querySelector('.cara-track'),
+      slides = car.querySelectorAll('.cara-slide'),
+      dots = car.querySelectorAll('.cara-dot'),
+      prev = car.querySelector('.cara-prev'),
+      next = car.querySelector('.cara-next');
+  if(!track || !slides.length) return;
+
+  function step(){{
+    var a = slides[0].getBoundingClientRect(),
+        b = slides.length > 1 ? slides[1].getBoundingClientRect() : null;
+    return b ? (b.left - a.left) : (a.width + 18);
+  }}
+  function perView(){{
+    return Math.max(1, Math.round(track.clientWidth / step()));
+  }}
+  function index(){{
+    return Math.round(track.scrollLeft / step());
+  }}
+  function sync(){{
+    var i = index(), max = slides.length - perView();
+    dots.forEach(function(d, di){{ d.classList.toggle('is-on', di === i); }});
+    if(prev) prev.disabled = i <= 0;
+    if(next) next.disabled = i >= max;
+  }}
+  function go(i){{
+    var max = slides.length - perView();
+    i = Math.max(0, Math.min(i, max));
+    track.scrollTo({{ left: i * step(), behavior: 'smooth' }});
+  }}
+
+  if(prev) prev.addEventListener('click', function(){{ go(index() - perView()); }});
+  if(next) next.addEventListener('click', function(){{ go(index() + perView()); }});
+  dots.forEach(function(d){{
+    d.addEventListener('click', function(){{ go(parseInt(d.dataset.go, 10)); }});
+  }});
+
+  var tick;
+  track.addEventListener('scroll', function(){{
+    clearTimeout(tick); tick = setTimeout(sync, 90);
+  }});
+  window.addEventListener('resize', function(){{
+    clearTimeout(tick); tick = setTimeout(sync, 150);
+  }});
+  sync();
 }});
 </script>
 </body>

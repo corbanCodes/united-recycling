@@ -2,7 +2,7 @@
 """Build every page. Run from the site root:  python3 _generator/build.py"""
 import os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from data import BIZ, PILLARS, MATERIALS, PROMISES, PARTNER, DEMO_SCOPE, DEMO_HEADLINE, DIVISION
+from data import BIZ, PILLARS, MATERIALS, PROMISES, PARTNER, DEMO_SCOPE, DEMO_HEADLINE, DIVISION, GALLERY
 import chrome as C
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -73,10 +73,44 @@ def division_block():
     <p class="division-blurb">{D["blurb"]}</p>
     <div class="btn-row">
       <a class="btn btn-red btn-lg" href="tel:{BIZ["phone_href"]}">Call {BIZ["phone_display"]}</a>
-      <a class="btn btn-ghost btn-lg" href="contact.html">Get A Demolition Quote</a>
+      <a class="btn btn-ghost btn-lg" href="sms:{PH}">Text A Photo</a>
     </div>
   </div>
 </section>
+"""
+
+
+def carousel_block(limit=None, heading=True):
+    """Scroll-snap carousel of Gus's own photos. No library, no build step — it's a
+    horizontal scroller with prev/next buttons and dots, so it degrades to a plain
+    swipeable strip if JS never runs."""
+    items = GALLERY if limit is None else GALLERY[:limit]
+    slides = ""
+    for i, (f, title, caption) in enumerate(items):
+        slides += (
+            f'      <li class="cara-slide" role="group" aria-roledescription="slide" '
+            f'aria-label="{i+1} of {len(items)}">\n'
+            f'        <figure>\n'
+            f'          <img src="assets/img/gallery/{f}" alt="{title} at United Recycling Scrap Metals" '
+            f'loading="lazy" width="750" height="1000">\n'
+            f'          <figcaption><strong>{title}</strong><span>{caption}</span></figcaption>\n'
+            f'        </figure>\n'
+            f'      </li>\n'
+        )
+    dots = "".join(
+        f'      <button class="cara-dot" type="button" data-go="{i}" aria-label="Go to slide {i+1}"></button>\n'
+        for i in range(len(items))
+    )
+    return f"""<div class="cara" data-carousel>
+  <button class="cara-nav cara-prev" type="button" aria-label="Previous photos">&#8249;</button>
+  <div class="cara-viewport">
+    <ul class="cara-track">
+{slides}    </ul>
+  </div>
+  <button class="cara-nav cara-next" type="button" aria-label="Next photos">&#8250;</button>
+  <div class="cara-dots">
+{dots}  </div>
+</div>
 """
 
 
@@ -134,6 +168,22 @@ home = f"""<section class="hero">
 
 {pillars_block()}
 
+<section class="sec-gray">
+  <div class="wrap">
+    <div class="sec-head center">
+      <span class="eyebrow">Straight from the yard</span>
+      <h2>Real Loads, Real Money</h2>
+      <p class="lede center" style="margin:0 auto">These are actual loads that came across our
+      scale in Lawrenceville. Got something that looks like this? Call or text
+      <a href="tel:{PH}">{P}</a> and ask for Gus.</p>
+    </div>
+    {carousel_block(limit=8)}
+    <div class="center" style="margin-top:34px">
+      <a class="btn btn-navy" href="gallery.html">See The Full Gallery</a>
+    </div>
+  </div>
+</section>
+
 <section>
   <div class="wrap split">
     <div>
@@ -143,7 +193,7 @@ home = f"""<section class="hero">
       <p>If it's metal, we want it. Copper, brass, aluminum, stainless, steel of any grade, electric motors, transformers, switch gear, machinery working or damaged, appliances, ice boxes, insulated wire, and the specialty material most yards turn away.</p>
       <div class="btn-row">
         <a class="btn btn-navy" href="about.html">About United Recycling</a>
-        <a class="btn btn-outline" href="contact.html">Get a Quote</a>
+        <a class="btn btn-outline" href="contact.html">Call Or Text Us</a>
       </div>
     </div>
     <div class="split-media"><img src="assets/img/yard-aerial.jpg" alt="Scrap metal recycling yard with material handler sorting ferrous and non-ferrous piles" loading="lazy" width="1200" height="820"></div>
@@ -221,7 +271,7 @@ wwb = banner("What We Buy",
     <div class="sec-head">
       <span class="eyebrow">Material list</span>
       <h2>Bring It In Or We'll Come Get It</h2>
-      <p class="lede">Small loads get weighed and paid at the scale. Large industrial lots get a quote, a container, and a scheduled pickup.</p>
+      <p class="lede">Small loads get weighed and paid at the scale. Large industrial lots get a price, a container, and a scheduled pickup.</p>
     </div>
     {materials_block()}
   </div>
@@ -306,7 +356,7 @@ comm = banner("Commercial &amp; Industrial Accounts",
       <p class="lede">United Recycling works directly with plant managers, electrical contractors, facility teams and business owners across Gwinnett County and North Georgia. We buy switch gear, MCCs, breakers, panels, disconnects, electric motors, transformers, heat exchangers, chillers and machinery &mdash; working or damaged.</p>
       <p>We handle surplus electrical inventory nobody else wants to grade, and specialty material like tantalum, high-temp alloys, nickel-cobalt, carbide and sludge, MRI magnets, X-ray film and litho negatives.</p>
       <div class="btn-row">
-        <a class="btn btn-red" href="contact.html">Request a Quote</a>
+        <a class="btn btn-red" href="tel:{PH}">Call {P}</a>
         <a class="btn btn-outline" href="what-we-buy.html">Full Material List</a>
       </div>
     </div>
@@ -362,7 +412,7 @@ demo = banner("Commercial &amp; Industrial Demolition",
       houses or garages. This crew is set up for power plants, chemical plants, mills, campuses,
       malls, apartment complexes and anything else with real tonnage in it.</p>
       <div class="btn-row">
-        <a class="btn btn-red" href="contact.html">Talk About A Project</a>
+        <a class="btn btn-red" href="tel:{PH}">Call {P}</a>
         <a class="btn btn-outline" href="tel:{PH}">Call {P}</a>
       </div>
     </div>
@@ -423,7 +473,7 @@ demo = banner("Commercial &amp; Industrial Demolition",
 
 {partner_block()}
 {C.strip()}
-{C.cta("Get A Demolition Quote", "Tell us what's coming down and roughly what's in it. We'll price the demolition and the metal together.")}
+{C.cta("Talk To Us About A Teardown", "Call or text <b>470-655-9608</b> and ask for Gus. Tell us what's coming down and roughly what's in it &mdash; we'll price the demolition and the metal together.")}
 """
 page("demolition.html",
      f"{DIVISION['name']} | Commercial &amp; Industrial Demolition",
@@ -442,7 +492,7 @@ veh = banner("Vehicles &amp; Heavy Equipment",
       <p class="lede">Retired company vehicles, box trucks, service vans, trailers, forklifts, loaders and production machinery all carry real metal value &mdash; whether they still run or haven't turned over in years.</p>
       <p>Tell us what you've got and where it's sitting. We'll price it and arrange the pickup.</p>
       <div class="btn-row">
-        <a class="btn btn-red" href="contact.html">Price My Vehicle</a>
+        <a class="btn btn-red" href="tel:{PH}">Call {P}</a>
         <a class="btn btn-outline" href="tel:{PH}">Call {P}</a>
       </div>
     </div>
@@ -486,7 +536,7 @@ about = banner("About United Recycling",
       <p>The whole business runs on one idea: pay more than the yard down the road, grade honestly in front of the customer, and answer the phone. That's why most of our volume comes from people who came once and kept coming back.</p>
       <p>We are a licensed and bonded company, and we are open to the public.</p>
       <div class="btn-row">
-        <a class="btn btn-navy" href="contact.html">Get In Touch</a>
+        <a class="btn btn-navy" href="contact.html">Call Or Text Us</a>
         <a class="btn btn-outline" href="drop-off.html">Visit The Yard</a>
       </div>
     </div>
@@ -522,94 +572,106 @@ page("about.html",
 
 
 # ---------------------------------------------------------------- CONTACT
-contact = banner("Get A Quote",
-                 "Call, text a picture of your load, or send us the details below. We answer fast.") + f"""
+# No form and no email anywhere on this site (client request 9/25 — he isn't tech
+# literate and doesn't want an inbox to miss). Phone and text only, and the page's
+# whole job is to get someone to call or text and ask for Gus.
+contact = banner("Call Or Text Us",
+                 "No forms, no email. Pick up the phone or send a text &mdash; "
+                 "and ask for Gus.") + f"""
 <section>
-  <div class="wrap split">
-    <div>
-      <div class="form-card">
-        <h3 style="margin-top:0">Tell us what you've got</h3>
-        <form name="quote" method="POST" data-netlify="true" action="thank-you.html">
-          <input type="hidden" name="form-name" value="quote">
-          <div class="field">
-            <label for="name">Name</label>
-            <input id="name" name="name" type="text" required>
-          </div>
-          <div class="field">
-            <label for="phone">Phone</label>
-            <input id="phone" name="phone" type="tel" required>
-          </div>
-          <div class="field">
-            <label for="email">Email</label>
-            <input id="email" name="email" type="email">
-          </div>
-          <div class="field">
-            <label for="type">What is it?</label>
-            <select id="type" name="type">
-              <option>Public drop-off (cans, wire, motors, appliances)</option>
-              <option>Commercial / industrial scrap</option>
-              <option>Electrical gear (switch gear, MCCs, breakers, transformers)</option>
-              <option>Demolition or plant cleanout</option>
-              <option>Dumpster / roll-off container</option>
-              <option>Vehicle or heavy equipment</option>
-              <option>Not sure &mdash; need help identifying it</option>
-            </select>
-          </div>
-          <div class="field">
-            <label for="details">Details</label>
-            <textarea id="details" name="details" placeholder="Roughly how much, where it's located, and when you need it gone."></textarea>
-          </div>
-          <button class="btn btn-red btn-lg" type="submit" style="width:100%">Send It Over</button>
-          <p class="form-note">Faster option: text a picture of the load to {P}. Picture messages accepted.</p>
-        </form>
+  <div class="wrap">
+    <div class="callbox">
+      <span class="callbox-eyebrow">Call or text</span>
+      <a class="callbox-number" href="tel:{PH}">{P}</a>
+      <p class="callbox-ask">Ask for Gus</p>
+      <p class="callbox-note">Picture messages welcome. Send a photo of what you've got and
+      you'll get a price back &mdash; it's the fastest way to find out what your load is worth.</p>
+      <div class="btn-row">
+        <a class="btn btn-red btn-lg" href="tel:{PH}">Call {P}</a>
+        <a class="btn btn-outline btn-lg" href="sms:{PH}">Text A Photo</a>
       </div>
     </div>
+  </div>
+</section>
+
+<section class="sec-gray">
+  <div class="wrap split">
     <div>
       <span class="eyebrow">The yard</span>
-      <h2>United Recycling Scrap Metals</h2>
+      <h2>{BIZ['name']}</h2>
       <ul class="contact-list">
-        <li><span class="cl-label">Call or text</span><span class="cl-value"><a href="tel:{PH}">{P}</a></span></li>
-        <li><span class="cl-label">Email</span><span class="cl-value"><a href="mailto:{BIZ['email']}">{BIZ['email']}</a></span></li>
-        <li><span class="cl-label">Address</span><span class="cl-value"><a href="{BIZ['map_url']}" target="_blank" rel="noopener">{BIZ['street']}<br>{BIZ['city']}, {BIZ['state']} {BIZ['zip']}</a></span></li>
-        <li><span class="cl-label">Hours</span><span class="cl-value" style="font-size:1rem">{BIZ['hours']}</span></li>
-        <li><span class="cl-label">Owner</span><span class="cl-value">{BIZ['owner']}</span></li>
+        <li><span class="cl-label">Call or text</span>
+            <span class="cl-value"><a href="tel:{PH}">{P}</a></span>
+            <span class="cl-sub">Ask for Gus &mdash; picture messages welcome</span></li>
+        <li><span class="cl-label">Address</span>
+            <span class="cl-value"><a href="{BIZ['map_url']}" target="_blank" rel="noopener">{BIZ['street']}<br>{BIZ['city']}, {BIZ['state']} {BIZ['zip']}</a></span></li>
+        <li><span class="cl-label">Hours</span>
+            <span class="cl-value" style="font-size:1rem">{BIZ['hours']}</span></li>
       </ul>
-      <p class="form-note">Text and picture messages are accepted at the same number. TODO(client): confirm yard hours before launch.</p>
+      <p class="form-note">TODO(client): confirm yard hours before this goes in front of customers.</p>
     </div>
+    <div class="split-media"><img src="assets/img/gallery/brass-valves-fittings.jpg" alt="Brass valves and fittings brought in to the yard" loading="lazy" width="750" height="1000"></div>
   </div>
 </section>
 
 {C.strip()}
 """
 page("contact.html",
-     f"Contact &amp; Get A Quote | {BIZ['name']}",
-     "Contact United Recycling Scrap Metals in Lawrenceville GA. Call or text 470-655-9608, picture messages accepted, or request a scrap metal quote online.",
+     f"Call Or Text {BIZ['short']} | Lawrenceville, GA",
+     "Call or text United Recycling Scrap Metals in Lawrenceville GA at 470-655-9608 and ask for Gus. Picture messages welcome — send a photo of your scrap and get a price back.",
      "contact.html", contact)
 
-
-# ---------------------------------------------------------------- THANK YOU / 404
-ty = f"""<section class="banner">
+# ---------------------------------------------------------------- GALLERY
+gal = banner("Our Yard &amp; Material",
+             "Real loads that came across our scale &mdash; photographed at the yard on "
+             "Hurricane Shoals Road.") + f"""
+<section>
   <div class="wrap">
-    <h1>Got It &mdash; Thanks</h1>
-    <p>Your message is in. {BIZ['owner']} or someone from the yard will get back to you shortly.</p>
-    <div class="btn-row" style="margin-top:26px">
-      <a class="btn btn-red btn-lg" href="tel:{PH}">Call {P} Now</a>
-      <a class="btn btn-ghost btn-lg" href="index.html">Back To Home</a>
+    <div class="sec-head">
+      <span class="eyebrow">Photo gallery</span>
+      <h2>This Is What We Buy</h2>
+      <p class="lede">Copper, brass, wire, motors, boards and fittings &mdash; graded, weighed and
+      paid for the same day. If you've got something that looks like any of this, call or text
+      <a href="tel:{PH}">{P}</a> and ask for Gus.</p>
+    </div>
+    {carousel_block()}
+  </div>
+</section>
+
+<section class="sec-gray">
+  <div class="wrap">
+    <div class="sec-head center">
+      <span class="eyebrow">All photos</span>
+      <h2>Every Load, Up Close</h2>
+    </div>
+    <div class="gal-grid">
+""" + "\n".join(
+    f'      <figure class="gal-item"><img src="assets/img/gallery/{f}" alt="{t} at United Recycling Scrap Metals" loading="lazy" width="750" height="1000"><figcaption>{t}</figcaption></figure>'
+    for f, t, c in GALLERY
+) + f"""
     </div>
   </div>
 </section>
-<section class="center"><div class="wrap"><p class="lede center" style="margin:0 auto">In a hurry? Text a picture of your load to <a href="tel:{PH}">{P}</a> and we'll price it faster than email.</p></div></section>
-"""
-page("thank-you.html", f"Thank You | {BIZ['short']}", "Thanks for contacting United Recycling Scrap Metals.", "", ty)
 
+{C.strip()}
+{C.cta("Got Something That Looks Like This?")}
+"""
+page("gallery.html",
+     f"Photo Gallery | {BIZ['name']}",
+     "Photos of real scrap metal loads bought at United Recycling Scrap Metals in Lawrenceville, GA — bare bright copper, brass, insulated wire, motors, circuit boards and fittings.",
+     "gallery.html", gal)
+
+
+# ---------------------------------------------------------------- 404
+# thank-you.html is gone with the form — nothing posts anywhere any more.
 nf = f"""<section class="banner">
   <div class="wrap">
     <h1>Page Not Found</h1>
-    <p>That page isn't here &mdash; but the metal still is. Try one of these.</p>
+    <p>That page isn't here &mdash; but the metal still is. Call or text {P} and ask for Gus.</p>
     <div class="btn-row" style="margin-top:26px">
-      <a class="btn btn-red btn-lg" href="index.html">Home</a>
+      <a class="btn btn-red btn-lg" href="tel:{PH}">Call {P}</a>
+      <a class="btn btn-ghost btn-lg" href="index.html">Home</a>
       <a class="btn btn-ghost btn-lg" href="what-we-buy.html">What We Buy</a>
-      <a class="btn btn-ghost btn-lg" href="contact.html">Get A Quote</a>
     </div>
   </div>
 </section>
@@ -650,7 +712,7 @@ page("credits.html", f"Photo Credits | {BIZ['short']}",
 # ---------------------------------------------------------------- robots / sitemap
 write("robots.txt", "User-agent: *\nAllow: /\n")
 pages = ["index.html","what-we-buy.html","drop-off.html","commercial.html",
-         "demolition.html","vehicles.html","about.html","contact.html"]
+         "demolition.html","vehicles.html","gallery.html","about.html","contact.html"]
 sm = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
 for p in pages:
     loc = "" if p == "index.html" else p

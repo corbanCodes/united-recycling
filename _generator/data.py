@@ -9,7 +9,6 @@ BIZ = {
     "owner": "Gus Heart",
     "phone_display": "470-655-9608",
     "phone_href": "+14706559608",
-    "email": "unitedelectricalsurplus@yahoo.com",
     "street": "621 Hurricane Shoals Rd",
     "city": "Lawrenceville",
     "state": "GA",
@@ -18,6 +17,12 @@ BIZ = {
     # TODO(client): confirm real yard hours
     "hours": "Mon–Fri 8:00am – 5:00pm · Sat 8:00am – 12:00pm",
     "tagline": "Ferrous &amp; Non-Ferrous Metal Recycling",
+    # NO email and NO forms anywhere on this site — client request 9/25. Phone only.
+    # Every phone number is followed by this line. It is the main conversion instruction.
+    "ask_for": "Ask for Gus",
+    "call_cta": "Call or text &mdash; ask for Gus",
+    "call_note": "Call or text this number and ask for Gus. Picture messages welcome &mdash; "
+                 "send a photo of your load and you'll get a price back.",
 }
 
 NAV = [
@@ -27,6 +32,7 @@ NAV = [
     ("commercial.html", "Commercial"),
     ("demolition.html", "Demolition"),
     ("vehicles.html", "Vehicles"),
+    ("gallery.html", "Gallery"),
     ("about.html", "About"),
 ]
 
@@ -162,3 +168,21 @@ DIVISION = {
     "blurb": "The demolition division of the yard on Hurricane Shoals Road. Same crew, "
              "same scale, same check &mdash; pointed at buildings instead of pickup beds.",
 }
+
+# Gus's own photos of material that came across the scale. Shot on his phone and
+# texted over, so they arrived letterboxed — cropped to the 750x1000 content region.
+# These replace the Wikimedia stand-ins wherever a real photo does the job better.
+GALLERY = [
+    ("bare-bright-copper.jpg",     "Bare bright copper wire",      "Bundled bare bright copper — our top-paying grade."),
+    ("wire-red-coils.jpg",         "Insulated copper wire",        "Coils of insulated copper wire, sorted by grade."),
+    ("brass-valves-fittings.jpg",  "Brass valves &amp; fittings",  "Red brass, yellow brass, valves and plumbing fittings."),
+    ("copper-pipe-fittings.jpg",   "Copper pipe &amp; fittings",   "Copper tube, pipe and fittings out of a plumbing tear-out."),
+    ("alternators-motors.jpg",     "Alternators &amp; motors",     "Alternators, starters and small electric motors."),
+    ("circuit-boards.jpg",         "Circuit boards &amp; e-scrap", "Boards, power supplies and heat sinks — we grade these too."),
+    ("heavy-cable.jpg",            "Heavy cable",                  "Heavy gauge insulated cable off a commercial job."),
+    ("insulated-wire-black.jpg",   "Insulated wire",               "Black jacketed wire, ready for the scale."),
+    ("insulated-wire-blue.jpg",    "Communications wire",          "Blue and yellow data and comms wire."),
+    ("insulated-wire-colors.jpg",  "Mixed colored wire",           "Mixed low-voltage and control wire."),
+    ("insulated-wire-mixed.jpg",   "Mixed wire load",              "A mixed wire load straight out of a contractor's truck."),
+    ("stripped-wire.jpg",          "Aluminum &amp; stripped wire", "Stripped and aluminum wire, graded separately."),
+]
