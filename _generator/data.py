@@ -189,3 +189,36 @@ GALLERY = [
     ("insulated-wire-mixed.jpg",   "Mixed wire load",              "A mixed wire load straight out of a contractor's truck."),
     ("stripped-wire.jpg",          "Aluminum &amp; stripped wire", "Stripped and aluminum wire, graded separately."),
 ]
+
+# Two real yard locations (10/6/26). The Buford building is newly rented.
+# LOCATIONS[0] stays the primary — it owns the phone number and the schema address.
+LOCATIONS = [
+    {
+        "name": "Lawrenceville Yard",
+        "label": "Main yard &amp; public drop-off",
+        "street": "621 Hurricane Shoals Rd",
+        "city": "Lawrenceville", "state": "GA", "zip": "30046",
+        "map_url": "https://maps.google.com/?q=621+Hurricane+Shoals+Rd+Lawrenceville+GA+30046",
+    },
+    {
+        "name": "Buford Location",
+        "label": "Second location",
+        "street": "1901 Peachtree Industrial Blvd",
+        "city": "Buford", "state": "GA", "zip": "30518",
+        "map_url": "https://maps.google.com/?q=1901+Peachtree+Industrial+Blvd+Buford+GA+30518",
+    },
+]
+
+# Where the trucks actually travel for large commercial and industrial loads.
+# NOTE(10/6): these came from the client's expansion list, which mixed cities and states.
+# They are presented as "where we travel for large loads", NOT as office locations —
+# claiming branches that don't exist would be false advertising and would generate calls
+# nobody can service. Confirm he really runs equipment to all of these. See DEMO-NOTES.md.
+SERVICE_AREA = [
+    "Georgia", "Tennessee", "Alabama", "Florida",
+    "North Carolina", "Texas", "Louisiana", "Oklahoma",
+]
+SERVICE_CITIES = [
+    "Atlanta", "Charlotte", "Nashville", "Birmingham",
+    "Dallas", "Houston", "Oklahoma City", "Baton Rouge", "New Orleans",
+]

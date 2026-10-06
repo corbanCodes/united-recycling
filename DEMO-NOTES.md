@@ -100,6 +100,45 @@ stock photos (hero, yard-aerial, switchgear, demolition, vehicles) for his own a
 sends more, then delete `credits.html` and its footer link. Still need: the yard from
 the road, the scale/drive-in lane, and a shot of Gus or the crew.
 
+## 10/6 — two locations + travel area
+
+Added to **this site only**:
+
+- **Second yard: 1901 Peachtree Industrial Blvd, Buford, GA 30518** (newly rented).
+  Both addresses now appear on the home page, About, Contact, the footer and the
+  JSON-LD schema. Lawrenceville stays primary and keeps the phone number.
+- **States/metros travelled**, from the expansion list. Framed as *"We Haul Across The
+  Southeast — where we travel for large loads"*, **not** as office locations, because
+  claiming branches that don't exist is false advertising and generates calls nobody
+  can service. GA, TN, AL, FL, NC, TX, LA, OK + Atlanta, Charlotte, Nashville,
+  Birmingham, Dallas, Houston, OKC, Baton Rouge, New Orleans.
+
+**CONFIRM WITH HIM:** does he actually run tractors/trailers to Louisiana, Oklahoma and
+Texas today, or is that where he *wants* locations? If it's aspirational, cut the list
+back to what he can really service — one unanswerable call from Houston costs more
+goodwill than the listing earns. Edit `SERVICE_AREA` / `SERVICE_CITIES` in
+`_generator/data.py`.
+
+**Buford hours** are unknown. The site shows one set of hours for both yards, which is
+very likely wrong for a brand-new building. Still the top open question.
+
+## NOT on this site — parked from the 10/6 notes
+
+The 10/6 notes covered three businesses. Only the two addresses and the travel area
+belong to United Recycling. Everything below is **not built and not in this repo**:
+
+- **Ann / SA Metals Recycling LLC** — her own website, her hours of operation, her second
+  address. Separate build.
+- **Vinnie (the son)** — United Electrical, `unitedelectricalsurplus.com`. Wants to leave
+  his current web guy and get a new site: Google Business page, Facebook page, **forms**,
+  "paying more than anyone else for electrical equipment", tractors/trailers and large
+  equipment pickup, remove the existing photos. **Real number: 404-831-3600** (the
+  404-830-3600 in the earlier note was wrong). He is an electrical buyer, not a scrap
+  recycler — different positioning entirely.
+- **Both** want Google review links and SEO / Google Business Maps work.
+- "Huge cranes, 40,000 lbs+" capability — good proof copy, but I don't know yet which
+  business it belongs to. Ask before putting it on any site.
+
 ## Open questions for Gus — ASK ON THE CALL
 
 1. **Yard hours.** Placeholder is Mon–Fri 8–5, Sat 8–12. Need the real ones.

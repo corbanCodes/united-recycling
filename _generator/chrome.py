@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """Shared page chrome: <head>, top bar, header/nav, CTA band, footer."""
-from data import BIZ, NAV, DIVISION
+from data import BIZ, NAV, DIVISION, LOCATIONS
 
 def head(title, desc, active):
     return f"""<!doctype html>
@@ -21,6 +21,10 @@ def head(title, desc, active):
   "@type":"RecyclingCenter",
   "name":"{BIZ['name']}",
   "telephone":"{BIZ['phone_display']}",
+  "location":[
+    {{"@type":"Place","name":"{LOCATIONS[0]['name']}","address":{{"@type":"PostalAddress","streetAddress":"{LOCATIONS[0]['street']}","addressLocality":"{LOCATIONS[0]['city']}","addressRegion":"{LOCATIONS[0]['state']}","postalCode":"{LOCATIONS[0]['zip']}","addressCountry":"US"}}}},
+    {{"@type":"Place","name":"{LOCATIONS[1]['name']}","address":{{"@type":"PostalAddress","streetAddress":"{LOCATIONS[1]['street']}","addressLocality":"{LOCATIONS[1]['city']}","addressRegion":"{LOCATIONS[1]['state']}","postalCode":"{LOCATIONS[1]['zip']}","addressCountry":"US"}}}}
+  ],
   "address":{{
     "@type":"PostalAddress",
     "streetAddress":"{BIZ['street']}",
@@ -38,7 +42,7 @@ def head(title, desc, active):
 def topbar():
     return f"""<div class="topbar">
   <div class="wrap">
-    <span>{BIZ['street']}, {BIZ['city']}, {BIZ['state']} {BIZ['zip']}</span>
+    <span>Two Georgia yards &mdash; {LOCATIONS[0]['city']} &amp; {LOCATIONS[1]['city']}</span>
     <span class="tb-note">Call or text &mdash; picture messages welcome</span>
     <span><a href="tel:{BIZ['phone_href']}">{BIZ['phone_display']}</a> <b class="tb-ask">&middot; {BIZ['ask_for']}</b></span>
   </div>
@@ -120,7 +124,8 @@ def footer():
       <div>
         <h4>The Yard</h4>
         <ul>
-          <li><a href="{BIZ['map_url']}" target="_blank" rel="noopener">{BIZ['street']}<br>{BIZ['city']}, {BIZ['state']} {BIZ['zip']}</a></li>
+          <li><a href="{LOCATIONS[0]['map_url']}" target="_blank" rel="noopener">{LOCATIONS[0]['street']}<br>{LOCATIONS[0]['city']}, {LOCATIONS[0]['state']} {LOCATIONS[0]['zip']}</a></li>
+          <li><a href="{LOCATIONS[1]['map_url']}" target="_blank" rel="noopener">{LOCATIONS[1]['street']}<br>{LOCATIONS[1]['city']}, {LOCATIONS[1]['state']} {LOCATIONS[1]['zip']}</a></li>
           <li><a class="foot-phone" href="tel:{BIZ['phone_href']}">{BIZ['phone_display']}</a>
               <span class="foot-ask">{BIZ['call_cta']}</span></li>
           <li>{BIZ['hours']}</li>

@@ -2,7 +2,8 @@
 """Build every page. Run from the site root:  python3 _generator/build.py"""
 import os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from data import BIZ, PILLARS, MATERIALS, PROMISES, PARTNER, DEMO_SCOPE, DEMO_HEADLINE, DIVISION, GALLERY
+from data import (BIZ, PILLARS, MATERIALS, PROMISES, PARTNER, DEMO_SCOPE, DEMO_HEADLINE,
+                  DIVISION, GALLERY, LOCATIONS, SERVICE_AREA, SERVICE_CITIES)
 import chrome as C
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -115,6 +116,51 @@ def carousel_block(limit=None, heading=True):
 """
 
 
+def locations_block():
+    """Both yards, side by side. Address lines are tappable map links because most of
+    this traffic is on a phone in a truck."""
+    cards = ""
+    for i, L in enumerate(LOCATIONS):
+        cards += f"""      <div class="loc">
+        <span class="loc-tag">{L["label"]}</span>
+        <h3>{L["name"]}</h3>
+        <a class="loc-addr" href="{L["map_url"]}" target="_blank" rel="noopener">
+          {L["street"]}<br>{L["city"]}, {L["state"]} {L["zip"]}
+        </a>
+        <div class="loc-actions">
+          <a class="btn btn-red" href="tel:{PH}">Call {P}</a>
+          <a class="btn btn-outline" href="{L["map_url"]}" target="_blank" rel="noopener">Directions</a>
+        </div>
+      </div>
+"""
+    return f"""<div class="locs">
+{cards}    </div>
+"""
+
+
+def service_area_block():
+    states = "".join(f'<span class="tag">{x}</span>' for x in SERVICE_AREA)
+    cities = "".join(f'<span class="tag tag-quiet">{x}</span>' for x in SERVICE_CITIES)
+    return f"""<section class="sec-gray">
+  <div class="wrap">
+    <div class="sec-head center">
+      <span class="eyebrow">Where we travel</span>
+      <h2>We Haul Across The Southeast</h2>
+      <p class="lede center" style="margin:0 auto">Two yards in Georgia, and tractors and
+      trailers that go out and pick up large commercial and industrial loads across these
+      states. If you've got tonnage, distance isn't the problem.</p>
+    </div>
+    <div class="center">
+      <p class="area-label">States we serve</p>
+      {states}
+      <p class="area-label" style="margin-top:24px">Metros we run to</p>
+      {cities}
+    </div>
+  </div>
+</section>
+"""
+
+
 def partner_block():
     """Referral card for Gus's friend. Deliberately looks like a referral, not a service
     of United Recycling — nobody should think Big Dog is the same company."""
@@ -176,6 +222,18 @@ home = f"""<section class="hero">
 
 {pillars_block()}
 
+<section>
+  <div class="wrap">
+    <div class="sec-head center">
+      <span class="eyebrow">Two Georgia yards</span>
+      <h2>Pull Into Either Location</h2>
+      <p class="lede center" style="margin:0 auto">Both yards buy from the public and both
+      handle commercial accounts. Same phone number for both &mdash; call or text and ask for {ASKNAME}.</p>
+    </div>
+    {locations_block()}
+  </div>
+</section>
+
 <section class="sec-gray">
   <div class="wrap">
     <div class="sec-head center">
@@ -191,6 +249,8 @@ home = f"""<section class="hero">
     </div>
   </div>
 </section>
+
+{service_area_block()}
 
 <section>
   <div class="wrap split">
@@ -549,16 +609,31 @@ about = banner("About United Recycling",
   </div>
 </section>
 
+<section>
+  <div class="wrap">
+    <div class="sec-head center">
+      <span class="eyebrow">Our yards</span>
+      <h2>Two Georgia Locations</h2>
+      <p class="lede center" style="margin:0 auto">Drive into either one. Both buy from the
+      public and both run commercial and industrial accounts.</p>
+    </div>
+    {locations_block()}
+  </div>
+</section>
+
+{service_area_block()}
+
 <section class="sec-gray">
   <div class="wrap">
     <div class="sec-head center">
-      <span class="eyebrow">Service area</span>
-      <h2>Lawrenceville &amp; All Of North Georgia</h2>
-      <p class="lede center" style="margin:0 auto">Public drop-off at the Lawrenceville yard. Container service, pickups and demolition throughout the metro.</p>
+      <span class="eyebrow">Local drop-off</span>
+      <h2>Serving Metro Atlanta &amp; North Georgia</h2>
+      <p class="lede center" style="margin:0 auto">Public drop-off at both yards. Container
+      service, pickups and demolition throughout the metro.</p>
     </div>
     <div class="center">
-      <span class="tag">Lawrenceville</span><span class="tag">Duluth</span><span class="tag">Suwanee</span>
-      <span class="tag">Buford</span><span class="tag">Norcross</span><span class="tag">Snellville</span>
+      <span class="tag">Lawrenceville</span><span class="tag">Buford</span><span class="tag">Duluth</span>
+      <span class="tag">Suwanee</span><span class="tag">Norcross</span><span class="tag">Snellville</span>
       <span class="tag">Lilburn</span><span class="tag">Dacula</span><span class="tag">Grayson</span>
       <span class="tag">Loganville</span><span class="tag">Sugar Hill</span><span class="tag">Winder</span>
       <span class="tag">Gainesville</span><span class="tag">Athens</span><span class="tag">Atlanta Metro</span>
@@ -607,8 +682,10 @@ contact = banner("Call Or Text Us",
         <li><span class="cl-label">Call or text</span>
             <span class="cl-value"><a href="tel:{PH}">{P}</a></span>
             <span class="cl-sub">{ASK} &mdash; picture messages welcome</span></li>
-        <li><span class="cl-label">Address</span>
-            <span class="cl-value"><a href="{BIZ['map_url']}" target="_blank" rel="noopener">{BIZ['street']}<br>{BIZ['city']}, {BIZ['state']} {BIZ['zip']}</a></span></li>
+        <li><span class="cl-label">Lawrenceville yard</span>
+            <span class="cl-value"><a href="{LOCATIONS[0]['map_url']}" target="_blank" rel="noopener">{LOCATIONS[0]['street']}<br>{LOCATIONS[0]['city']}, {LOCATIONS[0]['state']} {LOCATIONS[0]['zip']}</a></span></li>
+        <li><span class="cl-label">Buford location</span>
+            <span class="cl-value"><a href="{LOCATIONS[1]['map_url']}" target="_blank" rel="noopener">{LOCATIONS[1]['street']}<br>{LOCATIONS[1]['city']}, {LOCATIONS[1]['state']} {LOCATIONS[1]['zip']}</a></span></li>
         <li><span class="cl-label">Hours</span>
             <span class="cl-value" style="font-size:1rem">{BIZ['hours']}</span></li>
       </ul>

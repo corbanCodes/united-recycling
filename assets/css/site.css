@@ -555,3 +555,36 @@ section{padding:84px 0}
   .hero-phone-ask{display:block;text-align:center}
   .hero-phone-number{display:block}
 }
+
+/* ---------- two yard locations ---------- */
+.locs{display:grid;grid-template-columns:repeat(2,1fr);gap:26px}
+.loc{
+  background:#fff;border:1px solid var(--gray-200);border-top:5px solid var(--red);
+  border-radius:var(--r);padding:30px 28px;box-shadow:var(--shadow);
+  transition:transform .15s ease,box-shadow .15s ease;
+}
+.loc:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
+.loc-tag{
+  display:inline-block;font-size:.72rem;font-weight:800;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--red);margin-bottom:10px;
+}
+.loc h3{font-size:1.3rem;margin-bottom:.45em}
+.loc-addr{
+  display:block;font-size:1.06rem;font-weight:700;color:var(--navy);
+  line-height:1.5;text-decoration:none;margin-bottom:20px;
+}
+.loc-addr:hover{color:var(--red);text-decoration:none}
+.loc-actions{display:flex;flex-wrap:wrap;gap:10px}
+.loc-actions .btn{padding:12px 20px;font-size:.84rem}
+
+/* service-area tags */
+.area-label{
+  font-size:.74rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--gray-500);margin:0 0 12px;
+}
+.tag-quiet{background:transparent;border:1px solid var(--gray-200);color:var(--gray-500)}
+
+@media (max-width:760px){
+  .locs{grid-template-columns:1fr}
+  .loc-actions .btn{width:100%;justify-content:center}
+}
