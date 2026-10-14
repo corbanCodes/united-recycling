@@ -139,6 +139,28 @@ belong to United Recycling. Everything below is **not built and not in this repo
 - "Huge cranes, 40,000 lbs+" capability — good proof copy, but I don't know yet which
   business it belongs to. Ask before putting it on any site.
 
+## 10/14 — 12 new yard photos + Christmas lights
+
+Gus texted 13 HEICs (`client-provided-photos-10-14-2026/`). Twelve are real yard
+material and are now in the gallery carousel and grid: bare bright copper, copper coils
+on pallets, insulated building wire, heavy jacketed cable, brass valves, faucets and
+fixtures, aluminum radiators, lead-acid batteries, lead sheet, brake rotors and two of
+Christmas lights. The 13th (IMG_5948) is the "Rich Uncle" logo cartoon off his flyer,
+not a yard photo, so it was left out of the gallery.
+
+The new bare-bright shot landed on the same filename as the September one — kept both,
+the new one is `bare-bright-copper-2.jpg`.
+
+**Christmas lights is a new seasonal buy line.** His words: businesses, property
+managers, churches and light installers dump pallets of old strings every January, and
+he buys them because they're insulated copper wire. There's now a red-bordered section
+on what-we-buy, plus the line item in the materials list. **Worth re-running this as a
+push every December/January** — it's a genuinely uncontested search term for a scrap
+yard and nobody thinks to call one about Christmas lights.
+
+Still outstanding: he said he has more photos coming, and a yard-from-the-road shot is
+still the one that would do the most work.
+
 ## Open questions for Gus — ASK ON THE CALL
 
 1. **Yard hours.** Placeholder is Mon–Fri 8–5, Sat 8–12. Need the real ones.

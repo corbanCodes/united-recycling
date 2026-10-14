@@ -83,6 +83,7 @@ MATERIALS = [
         "Electric motors",
         "Transformers",
         "Electrical &amp; insulated wire",
+        "Christmas &amp; holiday light strings",
         "Heat exchangers",
         "Chillers",
     ]),
@@ -188,6 +189,18 @@ GALLERY = [
     ("insulated-wire-colors.jpg",  "Mixed colored wire",           "Mixed low-voltage and control wire."),
     ("insulated-wire-mixed.jpg",   "Mixed wire load",              "A mixed wire load straight out of a contractor's truck."),
     ("stripped-wire.jpg",          "Aluminum &amp; stripped wire", "Stripped and aluminum wire, graded separately."),
+    ("insulated-building-wire.jpg","Insulated Building Wire",   "THHN and low-voltage wire in every color and gauge."),
+    ("heavy-jacketed-cable.jpg",  "Heavy Jacketed Cable",       "Large gauge jacketed cable off commercial and industrial jobs."),
+    ("copper-coils-pallets.jpg",  "Copper Coils On Pallets",    "Coiled copper and bare bright staged for pickup."),
+    ("bare-bright-copper-2.jpg",  "Bare Bright, Sorted",        "Clean bare bright copper &mdash; the grade that pays the most."),
+    ("brass-valves.jpg",          "Brass Valves &amp; Fittings","Red and yellow brass valve bodies and plumbing stock."),
+    ("faucets-fixtures.jpg",      "Faucets &amp; Fixtures",     "Chrome, stainless and brass fixtures from commercial tear-outs."),
+    ("aluminum-radiators.jpg",    "Aluminum Radiators",         "Aluminum and alloy radiators, graded on their own."),
+    ("lead-acid-batteries.jpg",   "Lead-Acid Batteries",        "Automotive and industrial batteries bought by the pallet."),
+    ("lead-sheet.jpg",            "Lead Sheet &amp; Plate",     "Sheet lead, plate and lead-bearing material."),
+    ("brake-rotors.jpg",          "Rotors &amp; Cast Iron",     "Brake rotors and heavy cast iron, paid by weight."),
+    ("christmas-lights.jpg",      "Christmas Light Strings",    "Yes, really &mdash; we buy holiday lights by the box."),
+    ("christmas-lights-bulk.jpg", "Holiday Lights In Bulk",     "Pallet and gaylord loads from businesses and installers."),
 ]
 
 # Two real yard locations (10/6/26). The Buford building is newly rented.
@@ -222,3 +235,21 @@ SERVICE_CITIES = [
     "Atlanta", "Charlotte", "Nashville", "Birmingham",
     "Dallas", "Houston", "Oklahoma City", "Baton Rouge", "New Orleans",
 ]
+
+# Seasonal buy, from Gus 10/14/26: "after the holidays people get rid of a lot of
+# Christmas lights, large big businesses commercial — I buy Christmas lights."
+HOLIDAY = {
+    "kicker": "Seasonal &mdash; after the holidays",
+    "heading": "We Buy Christmas Lights",
+    "body": "Every January, businesses, property managers, churches and light installers "
+            "throw out pallets of old holiday light strings. Don't pay to dump them. Those "
+            "strings are insulated copper wire, and we buy them by weight &mdash; burnt out, "
+            "tangled or broken makes no difference to us.",
+    "points": [
+        "Commercial and bulk quantities &mdash; boxes, pallets and gaylords",
+        "Burnt out, tangled, broken or mixed in with extension cords is fine",
+        "No sorting, no cutting the ends off, no testing required",
+        "Installers and property managers: call before you pay a dumpster fee",
+    ],
+    "photo": "christmas-lights.jpg",
+}

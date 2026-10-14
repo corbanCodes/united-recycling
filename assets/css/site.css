@@ -588,3 +588,25 @@ section{padding:84px 0}
   .locs{grid-template-columns:1fr}
   .loc-actions .btn{width:100%;justify-content:center}
 }
+
+/* ---------- seasonal christmas-light buy ---------- */
+.holiday{
+  padding:84px 0;background:var(--gray-50);
+  border-top:5px solid var(--red);border-bottom:5px solid var(--red);
+}
+.holiday .eyebrow{color:var(--red)}
+.holiday-list{list-style:none;margin:0 0 26px;padding:0}
+.holiday-list li{
+  position:relative;padding:9px 0 9px 28px;font-size:.99rem;color:#3C4453;
+  border-bottom:1px solid var(--gray-200);
+}
+.holiday-list li:last-child{border-bottom:0}
+.holiday-list li::before{
+  content:"";position:absolute;left:0;top:17px;width:11px;height:11px;
+  background:var(--red);border-radius:50%;
+}
+.holiday-ask{
+  margin:18px 0 0;font-weight:900;text-transform:uppercase;letter-spacing:.1em;
+  font-size:.92rem;color:var(--navy);
+}
+@media (max-width:820px){ .holiday{padding:60px 0} }

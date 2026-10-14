@@ -3,7 +3,7 @@
 import os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from data import (BIZ, PILLARS, MATERIALS, PROMISES, PARTNER, DEMO_SCOPE, DEMO_HEADLINE,
-                  DIVISION, GALLERY, LOCATIONS, SERVICE_AREA, SERVICE_CITIES)
+                  DIVISION, GALLERY, LOCATIONS, SERVICE_AREA, SERVICE_CITIES, HOLIDAY)
 import chrome as C
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -156,6 +156,30 @@ def service_area_block():
       <p class="area-label" style="margin-top:24px">Metros we run to</p>
       {cities}
     </div>
+  </div>
+</section>
+"""
+
+
+def holiday_block():
+    """Seasonal Christmas-light buy. Runs on the what-we-buy and drop-off pages because
+    January is when the searches happen and nobody thinks a scrap yard wants these."""
+    pts = "".join(f"        <li>{p}</li>\n" for p in HOLIDAY["points"])
+    return f"""<section class="holiday">
+  <div class="wrap split">
+    <div>
+      <span class="eyebrow">{HOLIDAY["kicker"]}</span>
+      <h2>{HOLIDAY["heading"]}</h2>
+      <p class="lede">{HOLIDAY["body"]}</p>
+      <ul class="holiday-list">
+{pts}      </ul>
+      <div class="btn-row">
+        <a class="btn btn-red btn-lg" href="tel:{PH}">Call {P}</a>
+        <a class="btn btn-outline btn-lg" href="sms:{PH}">Text A Photo</a>
+      </div>
+      <p class="holiday-ask">{ASK}</p>
+    </div>
+    <div class="split-media"><img src="assets/img/gallery/{HOLIDAY["photo"]}" alt="Boxes of commercial Christmas light strings bought for scrap" loading="lazy" width="1050" height="1400"></div>
   </div>
 </section>
 """
@@ -344,6 +368,8 @@ wwb = banner("What We Buy",
     {materials_block()}
   </div>
 </section>
+
+{holiday_block()}
 
 {C.strip()}
 
